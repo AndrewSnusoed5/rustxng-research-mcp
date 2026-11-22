@@ -1,0 +1,168 @@
+{"kind":"fixture","profile":"http","trial":1,"ms":0.734}
+{"kind":"fixture","profile":"mcp","trial":1,"ms":0.849}
+{"kind":"fixture","profile":"mcp","trial":2,"ms":0.556}
+{"kind":"fixture","profile":"http","trial":2,"ms":0.716}
+{"kind":"fixture","profile":"http","trial":3,"ms":0.75}
+{"kind":"fixture","profile":"mcp","trial":3,"ms":0.604}
+{"kind":"fixture","profile":"mcp","trial":4,"ms":0.595}
+{"kind":"fixture","profile":"http","trial":4,"ms":0.847}
+{"kind":"fixture","profile":"http","trial":5,"ms":1.545}
+{"kind":"fixture","profile":"mcp","trial":5,"ms":0.6}
+{"kind":"fixture","profile":"mcp","trial":6,"ms":0.562}
+{"kind":"fixture","profile":"http","trial":6,"ms":0.612}
+{"kind":"fixture","profile":"http","trial":7,"ms":0.506}
+{"kind":"fixture","profile":"mcp","trial":7,"ms":0.491}
+{"kind":"fixture","profile":"mcp","trial":8,"ms":0.526}
+{"kind":"fixture","profile":"http","trial":8,"ms":0.504}
+{"kind":"fixture","profile":"http","trial":9,"ms":0.538}
+{"kind":"fixture","profile":"mcp","trial":9,"ms":0.635}
+{"kind":"fixture","profile":"mcp","trial":10,"ms":0.566}
+{"kind":"fixture","profile":"http","trial":10,"ms":0.524}
+{"kind":"fixture","profile":"http","trial":11,"ms":0.758}
+{"kind":"fixture","profile":"mcp","trial":11,"ms":0.579}
+{"kind":"fixture","profile":"mcp","trial":12,"ms":0.703}
+{"kind":"fixture","profile":"http","trial":12,"ms":0.598}
+{"kind":"fixture","profile":"http","trial":13,"ms":0.507}
+{"kind":"fixture","profile":"mcp","trial":13,"ms":0.53}
+{"kind":"fixture","profile":"mcp","trial":14,"ms":0.481}
+{"kind":"fixture","profile":"http","trial":14,"ms":0.976}
+{"kind":"fixture","profile":"http","trial":15,"ms":0.544}
+{"kind":"fixture","profile":"mcp","trial":15,"ms":0.603}
+{"kind":"fixture","profile":"mcp","trial":16,"ms":0.552}
+{"kind":"fixture","profile":"http","trial":16,"ms":0.55}
+{"kind":"fixture","profile":"http","trial":17,"ms":0.527}
+{"kind":"fixture","profile":"mcp","trial":17,"ms":0.65}
+{"kind":"fixture","profile":"mcp","trial":18,"ms":0.534}
+{"kind":"fixture","profile":"http","trial":18,"ms":0.559}
+{"kind":"fixture","profile":"http","trial":19,"ms":0.484}
+{"kind":"fixture","profile":"mcp","trial":19,"ms":0.7}
+{"kind":"fixture","profile":"mcp","trial":20,"ms":0.534}
+{"kind":"fixture","profile":"http","trial":20,"ms":0.478}
+{"kind":"fixture","profile":"http","trial":21,"ms":0.413}
+{"kind":"fixture","profile":"mcp","trial":21,"ms":0.491}
+{"kind":"fixture","profile":"mcp","trial":22,"ms":0.454}
+{"kind":"fixture","profile":"http","trial":22,"ms":0.471}
+{"kind":"fixture","profile":"http","trial":23,"ms":0.46}
+{"kind":"fixture","profile":"mcp","trial":23,"ms":0.496}
+{"kind":"fixture","profile":"mcp","trial":24,"ms":0.48}
+{"kind":"fixture","profile":"http","trial":24,"ms":0.513}
+{"kind":"fixture","profile":"http","trial":25,"ms":0.444}
+{"kind":"fixture","profile":"mcp","trial":25,"ms":0.497}
+{"kind":"fixture","profile":"mcp","trial":26,"ms":0.595}
+{"kind":"fixture","profile":"http","trial":26,"ms":0.806}
+{"kind":"fixture","profile":"http","trial":27,"ms":0.45}
+{"kind":"fixture","profile":"mcp","trial":27,"ms":0.499}
+{"kind":"fixture","profile":"mcp","trial":28,"ms":0.546}
+{"kind":"fixture","profile":"http","trial":28,"ms":0.454}
+{"kind":"fixture","profile":"http","trial":29,"ms":0.429}
+{"kind":"fixture","profile":"mcp","trial":29,"ms":0.464}
+{"kind":"fixture","profile":"mcp","trial":30,"ms":0.422}
+{"kind":"fixture","profile":"http","trial":30,"ms":0.475}
+{"kind":"fixture","profile":"http","trial":31,"ms":0.413}
+{"kind":"fixture","profile":"mcp","trial":31,"ms":0.449}
+{"kind":"fixture","profile":"mcp","trial":32,"ms":0.431}
+{"kind":"fixture","profile":"http","trial":32,"ms":0.465}
+{"kind":"fixture","profile":"http","trial":33,"ms":0.441}
+{"kind":"fixture","profile":"mcp","trial":33,"ms":0.499}
+{"kind":"fixture","profile":"mcp","trial":34,"ms":0.638}
+{"kind":"fixture","profile":"http","trial":34,"ms":0.462}
+{"kind":"fixture","profile":"http","trial":35,"ms":0.424}
+{"kind":"fixture","profile":"mcp","trial":35,"ms":0.463}
+{"kind":"fixture","profile":"mcp","trial":36,"ms":0.434}
+{"kind":"fixture","profile":"http","trial":36,"ms":0.423}
+{"kind":"fixture","profile":"http","trial":37,"ms":0.482}
+{"kind":"fixture","profile":"mcp","trial":37,"ms":0.48}
+{"kind":"fixture","profile":"mcp","trial":38,"ms":0.448}
+{"kind":"fixture","profile":"http","trial":38,"ms":0.417}
+{"kind":"fixture","profile":"http","trial":39,"ms":0.451}
+{"kind":"fixture","profile":"mcp","trial":39,"ms":0.463}
+{"kind":"fixture","profile":"mcp","trial":40,"ms":0.488}
+{"kind":"fixture","profile":"http","trial":40,"ms":0.404}
+{"kind":"fixture","profile":"http","trial":41,"ms":0.476}
+{"kind":"fixture","profile":"mcp","trial":41,"ms":0.845}
+{"kind":"fixture","profile":"mcp","trial":42,"ms":0.503}
+{"kind":"fixture","profile":"http","trial":42,"ms":0.435}
+{"kind":"fixture","profile":"http","trial":43,"ms":0.445}
+{"kind":"fixture","profile":"mcp","trial":43,"ms":0.508}
+{"kind":"fixture","profile":"mcp","trial":44,"ms":0.452}
+{"kind":"fixture","profile":"http","trial":44,"ms":0.454}
+{"kind":"fixture","profile":"http","trial":45,"ms":0.394}
+{"kind":"fixture","profile":"mcp","trial":45,"ms":0.502}
+{"kind":"fixture","profile":"mcp","trial":46,"ms":0.42}
+{"kind":"fixture","profile":"http","trial":46,"ms":0.429}
+{"kind":"fixture","profile":"http","trial":47,"ms":0.536}
+{"kind":"fixture","profile":"mcp","trial":47,"ms":0.479}
+{"kind":"fixture","profile":"mcp","trial":48,"ms":0.444}
+{"kind":"fixture","profile":"http","trial":48,"ms":0.795}
+{"kind":"fixture","profile":"http","trial":49,"ms":0.454}
+{"kind":"fixture","profile":"mcp","trial":49,"ms":0.469}
+{"kind":"fixture","profile":"mcp","trial":50,"ms":0.437}
+{"kind":"fixture","profile":"http","trial":50,"ms":0.417}
+{"kind":"fixture","profile":"http","trial":51,"ms":0.41}
+{"kind":"fixture","profile":"mcp","trial":51,"ms":0.44}
+{"kind":"fixture","profile":"mcp","trial":52,"ms":0.446}
+{"kind":"fixture","profile":"http","trial":52,"ms":0.478}
+{"kind":"fixture","profile":"http","trial":53,"ms":0.428}
+{"kind":"fixture","profile":"mcp","trial":53,"ms":0.459}
+{"kind":"fixture","profile":"mcp","trial":54,"ms":0.411}
+{"kind":"fixture","profile":"http","trial":54,"ms":0.409}
+{"kind":"fixture","profile":"http","trial":55,"ms":0.406}
+{"kind":"fixture","profile":"mcp","trial":55,"ms":0.471}
+{"kind":"fixture","profile":"mcp","trial":56,"ms":0.664}
+{"kind":"fixture","profile":"http","trial":56,"ms":0.458}
+{"kind":"fixture","profile":"http","trial":57,"ms":0.406}
+{"kind":"fixture","profile":"mcp","trial":57,"ms":0.432}
+{"kind":"fixture","profile":"mcp","trial":58,"ms":0.42}
+{"kind":"fixture","profile":"http","trial":58,"ms":0.444}
+{"kind":"fixture","profile":"http","trial":59,"ms":0.406}
+{"kind":"fixture","profile":"mcp","trial":59,"ms":0.469}
+{"kind":"fixture","profile":"mcp","trial":60,"ms":0.425}
+{"kind":"fixture","profile":"http","trial":60,"ms":0.421}
+{"kind":"live","profile":"http","trial":1,"topic":"Python task groups","ms":1637,"results":5,"bodies":5,"characters":34503,"facts":0,"controls":2}
+{"kind":"live","profile":"mcp","trial":1,"topic":"Python task groups","ms":3,"results":5,"bodies":5,"characters":34503,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":1,"topic":"Python task groups","ms":6366,"results":5,"bodies":4,"characters":26307,"facts":2,"controls":2}
+{"kind":"live","profile":"mcp","trial":1,"topic":"nginx request routing","ms":3392,"results":5,"bodies":5,"characters":40005,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":1,"topic":"nginx request routing","ms":5049,"results":5,"bodies":5,"characters":18874,"facts":2,"controls":2}
+{"kind":"live","profile":"http","trial":1,"topic":"nginx request routing","ms":3,"results":5,"bodies":5,"characters":40005,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":1,"topic":"HTTP status 429","ms":2243,"results":5,"bodies":5,"characters":19316,"facts":2,"controls":2}
+{"kind":"live","profile":"http","trial":1,"topic":"HTTP status 429","ms":1986,"results":5,"bodies":5,"characters":21020,"facts":2,"controls":2}
+{"kind":"live","profile":"mcp","trial":1,"topic":"HTTP status 429","ms":1,"results":5,"bodies":5,"characters":21020,"facts":2,"controls":2}
+{"kind":"live","profile":"http","trial":1,"topic":"Rust atomic ordering","ms":1645,"results":5,"bodies":5,"characters":31169,"facts":0,"controls":2}
+{"kind":"live","profile":"mcp","trial":1,"topic":"Rust atomic ordering","ms":2,"results":5,"bodies":5,"characters":31169,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":1,"topic":"Rust atomic ordering","ms":2568,"results":5,"bodies":5,"characters":17812,"facts":1,"controls":2}
+{"kind":"live","profile":"mcp","trial":1,"topic":"Warcraft auctions","ms":1858,"results":5,"bodies":4,"characters":30736,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":1,"topic":"Warcraft auctions","ms":6328,"results":5,"bodies":4,"characters":30737,"facts":0,"controls":2}
+{"kind":"live","profile":"http","trial":1,"topic":"Warcraft auctions","ms":496,"results":5,"bodies":4,"characters":30736,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":1,"topic":"AV1 specification","ms":5825,"results":5,"bodies":3,"characters":17609,"facts":2,"controls":2}
+{"kind":"live","profile":"http","trial":1,"topic":"AV1 specification","ms":1901,"results":5,"bodies":5,"characters":22776,"facts":2,"controls":2}
+{"kind":"live","profile":"mcp","trial":1,"topic":"AV1 specification","ms":2,"results":5,"bodies":5,"characters":22776,"facts":2,"controls":2}
+{"kind":"live","profile":"http","trial":1,"topic":"Annual leave in Russian law","ms":10634,"results":1,"bodies":0,"characters":0,"facts":0,"controls":2}
+{"kind":"live","profile":"mcp","trial":1,"topic":"Annual leave in Russian law","ms":5024,"results":1,"bodies":0,"characters":0,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":1,"topic":"Annual leave in Russian law","ms":5158,"results":5,"bodies":5,"characters":21435,"facts":2,"controls":2}
+{"kind":"live","profile":"mcp","trial":1,"topic":"Sourdough fermentation","ms":1736,"results":5,"bodies":4,"characters":32004,"facts":2,"controls":2}
+{"kind":"live","profile":"native","trial":1,"topic":"Sourdough fermentation","ms":4902,"results":5,"bodies":5,"characters":25265,"facts":2,"controls":2}
+{"kind":"live","profile":"http","trial":1,"topic":"Sourdough fermentation","ms":267,"results":5,"bodies":4,"characters":32004,"facts":2,"controls":2}
+{"kind":"live","profile":"mcp","trial":2,"topic":"Python task groups","ms":231,"results":5,"bodies":5,"characters":34503,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":2,"topic":"Python task groups","ms":5842,"results":5,"bodies":4,"characters":26307,"facts":2,"controls":2}
+{"kind":"live","profile":"http","trial":2,"topic":"Python task groups","ms":2,"results":5,"bodies":5,"characters":34503,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":2,"topic":"nginx request routing","ms":2295,"results":5,"bodies":5,"characters":18874,"facts":2,"controls":2}
+{"kind":"live","profile":"http","trial":2,"topic":"nginx request routing","ms":2000,"results":5,"bodies":5,"characters":40005,"facts":0,"controls":2}
+{"kind":"live","profile":"mcp","trial":2,"topic":"nginx request routing","ms":2,"results":5,"bodies":5,"characters":40005,"facts":0,"controls":2}
+{"kind":"live","profile":"http","trial":2,"topic":"HTTP status 429","ms":1386,"results":5,"bodies":5,"characters":21020,"facts":2,"controls":2}
+{"kind":"live","profile":"mcp","trial":2,"topic":"HTTP status 429","ms":1,"results":5,"bodies":5,"characters":21020,"facts":2,"controls":2}
+{"kind":"live","profile":"native","trial":2,"topic":"HTTP status 429","ms":1352,"results":5,"bodies":5,"characters":19316,"facts":2,"controls":2}
+{"kind":"live","profile":"mcp","trial":2,"topic":"Rust atomic ordering","ms":731,"results":5,"bodies":5,"characters":31169,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":2,"topic":"Rust atomic ordering","ms":1064,"results":5,"bodies":5,"characters":17812,"facts":1,"controls":2}
+{"kind":"live","profile":"http","trial":2,"topic":"Rust atomic ordering","ms":1,"results":5,"bodies":5,"characters":31169,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":2,"topic":"Warcraft auctions","ms":5884,"results":5,"bodies":4,"characters":30737,"facts":0,"controls":2}
+{"kind":"live","profile":"http","trial":2,"topic":"Warcraft auctions","ms":459,"results":5,"bodies":4,"characters":30736,"facts":0,"controls":2}
+{"kind":"live","profile":"mcp","trial":2,"topic":"Warcraft auctions","ms":458,"results":5,"bodies":4,"characters":30736,"facts":0,"controls":2}
+{"kind":"live","profile":"http","trial":2,"topic":"AV1 specification","ms":824,"results":5,"bodies":5,"characters":22776,"facts":2,"controls":2}
+{"kind":"live","profile":"mcp","trial":2,"topic":"AV1 specification","ms":2,"results":5,"bodies":5,"characters":22776,"facts":2,"controls":2}
+{"kind":"live","profile":"native","trial":2,"topic":"AV1 specification","ms":5423,"results":5,"bodies":3,"characters":17609,"facts":2,"controls":2}
+{"kind":"live","profile":"mcp","trial":2,"topic":"Annual leave in Russian law","ms":5004,"results":1,"bodies":0,"characters":0,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":2,"topic":"Annual leave in Russian law","ms":857,"results":5,"bodies":5,"characters":21435,"facts":2,"controls":2}
+{"kind":"live","profile":"http","trial":2,"topic":"Annual leave in Russian law","ms":5004,"results":1,"bodies":0,"characters":0,"facts":0,"controls":2}
+{"kind":"live","profile":"native","trial":2,"topic":"Sourdough fermentation","ms":1101,"results":5,"bodies":5,"characters":25264,"facts":2,"controls":2}
+{"kind":"live","profile":"http","trial":2,"topic":"Sourdough fermentation","ms":417,"results":5,"bodies":4,"characters":32004,"facts":2,"controls":2}
+{"kind":"live","profile":"mcp","trial":2,"topic":"Sourdough fermentation","ms":190,"results":5,"bodies":4,"characters":32004,"facts":2,"controls":2}

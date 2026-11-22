@@ -1,0 +1,8 @@
+[
+  {"urls": 15, "tasks": 24, "fetch_ms": [4506, 4504], "bodies": 27},
+  {"urls": 15, "tasks": 100, "fetch_ms": [4503, 4514], "bodies": 28},
+  {"urls": 48, "tasks": 24, "fetch_ms": [8745, 9009], "bodies": 88},
+  {"urls": 48, "tasks": 100, "fetch_ms": [8587, 8609], "bodies": 90},
+  {"urls": 72, "tasks": 24, "fetch_ms": [12627, 11170], "bodies": 125},
+  {"urls": 72, "tasks": 100, "fetch_ms": [10106, 8602], "bodies": 128}
+]

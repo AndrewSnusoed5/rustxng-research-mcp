@@ -2,6 +2,8 @@
 
 A small Rust MCP server that connects AI clients to a self-hosted RustXNG instance. Search the web for links and snippets, or ask RustXNG for the source text it can retrieve. The server runs over stdio and talks to RustXNG through its documented HTTP API.
 
+[Architecture and troubleshooting](docs/architecture.md) · [Benchmarks and reproduction](docs/benchmarks.md)
+
 ## Quick start
 
 Start [RustXNG](https://github.com/RustXNG/RustXNG) v0.32.0 or newer from its own release or source distribution.
@@ -10,7 +12,7 @@ Start [RustXNG](https://github.com/RustXNG/RustXNG) v0.32.0 or newer from its ow
 rustxng --profile standard --bind 127.0.0.1 --port 29483
 ```
 
-Build this client with Rust 1.89 or newer.
+Build this client with Rust 1.89 or newer. On Windows, use a Developer PowerShell with the MSVC toolchain available.
 
 ```sh
 cargo build --release --locked
@@ -52,6 +54,12 @@ Each tool accepts `query`, `limit`, and optional `language` and `engines`. `engi
 This client makes one request to RustXNG per tool call. It keeps no query or page cache and asks for no credentials. Your RustXNG profile determines its external requests, page extraction capabilities, and cache policy. A result can have a snippet and a retrieval status even when the page text is unavailable.
 
 RustXNG v0.32.0 requires direct connections for its page fetcher to validate destinations. If a search returns snippets but no page text, check the upstream server's own fetch and proxy configuration. Follow the settings required by your network. Text truncation and retrieval status are shown when RustXNG supplies them.
+
+## Benchmark
+
+![Latency, page availability and body controls for direct RustXNG, its MCP adapter and the full my-web-search pipeline](docs/rustxng-benchmark.png)
+
+The [benchmark notes](docs/benchmarks.md) cover live retrieval, adapter overhead on a fixed response, and the older and newer page schedulers in my-web-search.
 
 ## Project status and license
 
