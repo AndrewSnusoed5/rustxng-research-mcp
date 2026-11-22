@@ -1,0 +1,120 @@
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Rust language","ms":800.61,"rank":2,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Rust language","ms":758.03,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Rust language","ms":463.36,"rank":0,"results":0,"wiby":false,"engineFailures":2}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Rust language","ms":731.9,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Internet addressing","ms":386.8,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Internet addressing","ms":459.78,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Internet addressing","ms":290.42,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Internet addressing","ms":295.54,"rank":1,"results":19,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Planet astronomy","ms":362.44,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Planet astronomy","ms":413.54,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Planet astronomy","ms":372.71,"rank":1,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Planet astronomy","ms":349.23,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Solar eclipse","ms":655.13,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Solar eclipse","ms":670.39,"rank":1,"results":11,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Solar eclipse","ms":668.8,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Solar eclipse","ms":460.44,"rank":0,"results":0,"wiby":false,"engineFailures":2}
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Russian literature","ms":620.31,"rank":1,"results":18,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Russian literature","ms":450.29,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Russian literature","ms":415.65,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Russian literature","ms":470.39,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Mars rover","ms":417.08,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Mars rover","ms":459.37,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Mars rover","ms":399.47,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Mars rover","ms":465.26,"rank":1,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Space probe","ms":417.79,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Space probe","ms":420.04,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Space probe","ms":369.07,"rank":1,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Space probe","ms":335.25,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Encrypted transport","ms":663.42,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Encrypted transport","ms":434.38,"rank":1,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Encrypted transport","ms":386,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Encrypted transport","ms":420.93,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Binary search","ms":481.32,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Binary search","ms":354.3,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Binary search","ms":397.14,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Binary search","ms":377.84,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Database","ms":287.98,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Database","ms":346.15,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Database","ms":397.37,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Database","ms":328.52,"rank":1,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Pathfinding","ms":442.87,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Pathfinding","ms":497.2,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Pathfinding","ms":426.25,"rank":1,"results":21,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Pathfinding","ms":430.09,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"wikipedia-only","topic":"Geometry","ms":337.81,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"parallel","topic":"Geometry","ms":372.56,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"staged","topic":"Geometry","ms":340.32,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":1,"mode":"deadline-450","topic":"Geometry","ms":460.94,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Rust language","ms":453.97,"rank":0,"results":0,"wiby":false,"engineFailures":2}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Rust language","ms":605.71,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Rust language","ms":701.28,"rank":2,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Rust language","ms":639.87,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Internet addressing","ms":297.91,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Internet addressing","ms":279.94,"rank":1,"results":19,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Internet addressing","ms":354.63,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Internet addressing","ms":462.51,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Planet astronomy","ms":357.03,"rank":1,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Planet astronomy","ms":400.29,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Planet astronomy","ms":377.53,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Planet astronomy","ms":412.14,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Solar eclipse","ms":635.72,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Solar eclipse","ms":456.68,"rank":0,"results":0,"wiby":false,"engineFailures":2}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Solar eclipse","ms":664.7,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Solar eclipse","ms":663.86,"rank":1,"results":11,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Russian literature","ms":413.53,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Russian literature","ms":439.16,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Russian literature","ms":412.34,"rank":1,"results":18,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Russian literature","ms":392.55,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Mars rover","ms":335.4,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Mars rover","ms":345.01,"rank":1,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Mars rover","ms":376.31,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Mars rover","ms":461.65,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Space probe","ms":328.51,"rank":1,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Space probe","ms":371.29,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Space probe","ms":357.18,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Space probe","ms":410.28,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Encrypted transport","ms":494.96,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Encrypted transport","ms":461.59,"rank":0,"results":0,"wiby":false,"engineFailures":2}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Encrypted transport","ms":505.83,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Encrypted transport","ms":444.48,"rank":1,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Binary search","ms":370.7,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Binary search","ms":358.73,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Binary search","ms":372.12,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Binary search","ms":356.95,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Database","ms":299.47,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Database","ms":414.94,"rank":1,"results":22,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Database","ms":288.71,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Database","ms":339.77,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Pathfinding","ms":379.8,"rank":1,"results":21,"wiby":true,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Pathfinding","ms":494.63,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Pathfinding","ms":404.11,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Pathfinding","ms":409.99,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"staged","topic":"Geometry","ms":336.05,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"deadline-450","topic":"Geometry","ms":419.51,"rank":1,"results":10,"wiby":false,"engineFailures":1}
+{"kind":"new-query","trial":2,"mode":"wikipedia-only","topic":"Geometry","ms":390.24,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"new-query","trial":2,"mode":"parallel","topic":"Geometry","ms":345.05,"rank":1,"results":10,"wiby":false,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"cold","topic":"Rust language","ms":710.96,"rank":2,"results":22,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"same-query","topic":"Rust language","ms":1.23,"rank":2,"results":22,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"unrelated","topic":"Rust language","ms":469.35,"rank":2,"results":22,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"same-query","topic":"Rust language","ms":1.47,"rank":2,"results":22,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"unrelated","topic":"Internet addressing","ms":561.4,"rank":1,"results":19,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"same-query","topic":"Internet addressing","ms":1.03,"rank":1,"results":19,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"cold","topic":"Internet addressing","ms":700.75,"rank":1,"results":19,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"same-query","topic":"Internet addressing","ms":1.12,"rank":1,"results":19,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"cold","topic":"Planet astronomy","ms":678.79,"rank":1,"results":22,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"same-query","topic":"Planet astronomy","ms":1.39,"rank":1,"results":22,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"unrelated","topic":"Planet astronomy","ms":506.89,"rank":1,"results":22,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"same-query","topic":"Planet astronomy","ms":1.23,"rank":1,"results":22,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"unrelated","topic":"Solar eclipse","ms":479.53,"rank":1,"results":11,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"same-query","topic":"Solar eclipse","ms":1.26,"rank":1,"results":11,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"cold","topic":"Solar eclipse","ms":717.35,"rank":1,"results":11,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"same-query","topic":"Solar eclipse","ms":1.11,"rank":1,"results":11,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"cold","topic":"Russian literature","ms":744.71,"rank":1,"results":18,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"same-query","topic":"Russian literature","ms":1.77,"rank":1,"results":18,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"unrelated","topic":"Russian literature","ms":909.68,"rank":1,"results":18,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"same-query","topic":"Russian literature","ms":1.37,"rank":1,"results":18,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"unrelated","topic":"Mars rover","ms":588.11,"rank":1,"results":22,"engineFailures":0}
+{"kind":"startup","treatment":"unrelated","stage":"same-query","topic":"Mars rover","ms":1.12,"rank":1,"results":22,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"cold","topic":"Mars rover","ms":674.53,"rank":1,"results":22,"engineFailures":0}
+{"kind":"startup","treatment":"cold","stage":"same-query","topic":"Mars rover","ms":1.23,"rank":1,"results":22,"engineFailures":0}

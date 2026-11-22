@@ -4,6 +4,16 @@ A small Rust MCP server that connects AI clients to a self-hosted RustXNG instan
 
 [Architecture and troubleshooting](docs/architecture.md) · [SearXNG vs RustXNG benchmark](docs/searxng-vs-rustxng.md)
 
+## SearXNG vs RustXNG
+
+![Direct SearXNG versus RustXNG search latency, repeat latency and top-five retrieval](docs/searxng-vs-rustxng.png)
+
+The [engine comparison](docs/searxng-vs-rustxng.md) tests both services directly with identical query text and shared engines. [Separate adapter and downloader results](docs/benchmarks.md) cover the MCP layer and full-page retrieval.
+
+In our direct HTTP benchmark, RustXNG retrieved the reference in 12/12
+topics per pass and answered identical repeats in 1–2 ms. SearXNG had the
+lower first-pass median. [First-query tuning and durable cache](docs/rustxng-first-query.md)
+
 ## Quick start
 
 Start [RustXNG](https://github.com/RustXNG/RustXNG) v0.32.0 or newer from its own release or source distribution.
@@ -51,15 +61,9 @@ Each tool accepts `query`, `limit`, and optional `language` and `engines`. `engi
 {"query":"Tokio task cancellation documentation","language":"en","limit":5}
 ```
 
-This client makes one request to RustXNG per tool call. It keeps no query or page cache and asks for no credentials. Your RustXNG profile determines its external requests, page extraction capabilities, and cache policy. A result can have a snippet and a retrieval status even when the page text is unavailable.
+This client makes one request to RustXNG per tool call. It asks for no credentials. An optional local SQLite cache can reuse recent link searches across restarts. [Cache settings](docs/rustxng-first-query.md#keeping-a-small-cache-on-ssd). Your RustXNG profile determines its external requests, page extraction capabilities, and cache policy. A result can have a snippet and a retrieval status even when the page text is unavailable.
 
 RustXNG v0.32.0 requires direct connections for its page fetcher to validate destinations. If a search returns snippets but no page text, check the upstream server's own fetch and proxy configuration. Follow the settings required by your network. Text truncation and retrieval status are shown when RustXNG supplies them.
-
-## SearXNG vs RustXNG
-
-![Direct SearXNG versus RustXNG search latency, repeat latency and top-five retrieval](docs/searxng-vs-rustxng.png)
-
-The [engine comparison](docs/searxng-vs-rustxng.md) tests both services directly with identical query text and shared engines. [Separate adapter and downloader results](docs/benchmarks.md) cover the MCP layer and full-page retrieval.
 
 ## Project status and license
 

@@ -1,3 +1,4 @@
+import { topics, isReference } from "./topics.mjs";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [searxng, rustxng] = process.argv.slice(2);
@@ -7,31 +8,8 @@ if (!searxng || !rustxng) {
 const trials = Number(process.env.BENCH_ENGINE_TRIALS ?? 2);
 if (!Number.isSafeInteger(trials) || trials < 1) throw Error("BENCH_ENGINE_TRIALS must be a positive integer");
 const engineSets = (process.env.BENCH_ENGINE_SETS ?? "wikipedia;wikipedia,wiby").split(";");
-const topics = [
-  ["Rust language", "Rust programming language", "en", "Rust_(programming_language)"],
-  ["Internet addressing", "IPv6", "en", "IPv6"],
-  ["Planet astronomy", "Mercury planet", "en", "Mercury_(planet)"],
-  ["Solar eclipse", "Солнечное затмение", "ru", "Солнечное_затмение"],
-  ["Russian literature", "Александр Пушкин", "ru", "Пушкин,_Александр_Сергеевич"],
-  ["Mars rover", "Mars rover Curiosity", "en", "Curiosity_(rover)"],
-  ["Space probe", "Voyager 1 spacecraft", "en", "Voyager_1"],
-  ["Encrypted transport", "Transport Layer Security", "en", "Transport_Layer_Security"],
-  ["Binary search", "Двоичный поиск", "ru", "Двоичный_поиск"],
-  ["Database", "PostgreSQL", "en", "PostgreSQL"],
-  ["Pathfinding", "A star search algorithm", "en", "A*_search_algorithm"],
-  ["Geometry", "Теорема Пифагора", "ru", "Теорема_Пифагора"],
-];
-const profiles = [["searxng", searxng], ["rustxng", rustxng]];
 
-function isReference(input, language, article) {
-  try {
-    const url = new URL(input);
-    return url.hostname === language + ".wikipedia.org"
-      && decodeURIComponent(url.pathname).toLowerCase() === ("/wiki/" + article).toLowerCase();
-  } catch {
-    return false;
-  }
-}
+const profiles = [["searxng", searxng], ["rustxng", rustxng]];
 
 async function sample([profile, base], trial, engines, [topic, query, language, article]) {
   const url = new URL("search", base.replace(/\/?$/, "/"));

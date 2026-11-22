@@ -17,13 +17,18 @@ sequenceDiagram
     participant P as Search providers and source sites
     C->>M: tools/call over stdio
     M->>M: Validate inputs and acquire a request slot
-    M->>R: GET /search?format=json
-    R->>P: Search with the selected profile
-    opt rustxng_research
-        R->>P: Retrieve page text per RustXNG settings
+    M->>M: Check optional SQLite cache for a link search
+    alt Fresh saved response
+        M-->>C: Structured MCP result
+    else Live request
+        M->>R: GET /search?format=json
+        R->>P: Search with the selected profile
+        opt rustxng_research
+            R->>P: Retrieve page text per RustXNG settings
+        end
+        R-->>M: Results and available retrieval status
+        M-->>C: Structured MCP result
     end
-    R-->>M: Results and available retrieval status
-    M-->>C: Structured MCP result
 ~~~
 
 ## What a call does
@@ -32,7 +37,8 @@ sequenceDiagram
    handshake over stdin/stdout. Startup parses RUSTXNG_URL and creates a
    reusable HTTP client.
 2. A call validates the query and result limit. The two tools share one
-   implementation. Both make one request to RustXNG at GET /search using
+   implementation. A fresh SQLite hit can complete a link search locally.
+   Live requests use GET /search with
    q, format=json and max_results. Optional language and engines go in the
    same request. Supplying engines also enables strict_engines.
 3. rustxng_research adds include_raw_content=1. RustXNG uses its configured
@@ -53,7 +59,7 @@ sequenceDiagram
 | HTTP deadlines | 3 seconds to connect and 40 seconds for the request |
 | HTTP response cap | 8 MiB |
 | HTTP transport | Direct connections and no redirect following. The endpoint uses a credential-free HTTP(S) base URL. |
-| Search, page and engine caches | Managed by RustXNG. The adapter reuses the HTTP client. |
+| Search, page and engine caches | RustXNG owns upstream caches. The adapter can also persist link searches in an optional SQLite cache. |
 
 The implementation and its loopback protocol tests are in
 [src/main.rs](../src/main.rs). Cargo.lock pins the build dependencies.
@@ -89,7 +95,7 @@ curl --get "http://127.0.0.1:29483/search" \
 
 ## API keys and related projects
 
-The adapter has one setting, RUSTXNG_URL. Configure a provider API key in
+RUSTXNG_URL sets the upstream service. To persist recent link searches, set RUSTXNG_DISK_CACHE_PATH and optionally RUSTXNG_DISK_CACHE_TTL_SECONDS. [Cache instructions](rustxng-first-query.md#keeping-a-small-cache-on-ssd). Configure a provider API key in
 the RustXNG process if the provider and profile require one. The Standard
 profile can search through its available public providers. Provider quotas
 and result availability still apply. [RustXNG profiles and configuration](https://github.com/RustXNG/RustXNG)

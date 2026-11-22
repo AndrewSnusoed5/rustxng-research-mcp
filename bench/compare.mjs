@@ -1,14 +1,14 @@
+import { mcp } from "./mcp.mjs";
 import { isDeepStrictEqual } from "node:util";
-import { spawn } from "node:child_process";
 import { once } from "node:events";
 import { createServer } from "node:http";
-import { createInterface } from "node:readline";
 
 const [base, wrapper, native] = process.argv.slice(2);
 if (!base || !wrapper) {
   throw new Error("Usage: node bench/compare.mjs <RustXNG URL> <wrapper executable> [my-web-search-rust executable]");
 }
 const limit = 5;
+const withoutDiskCache = { ...process.env, RUSTXNG_DISK_CACHE_PATH: "" };
 const trials = Number(process.env.BENCH_TRIALS ?? 2);
 const topics = [
   ["Python task groups", "Python asyncio TaskGroup exceptions cancellation and ExceptionGroup", "en", /remaining tasks.{0,100}cancel/i, /exceptiongroup/i],
@@ -30,59 +30,6 @@ async function httpSearch(url, query, language) {
   const response = await fetch(target, { signal: AbortSignal.timeout(40_000) });
   if (!response.ok) throw Error("HTTP " + response.status);
   return response.json();
-}
-
-async function mcp(executable, env) {
-  const child = spawn(executable, [], {
-    windowsHide: true, shell: false, detached: false, stdio: ["pipe", "pipe", "ignore"], env,
-  });
-  const closed = once(child, "close");
-  const lines = createInterface({ input: child.stdout });
-  const replies = new Map();
-  let sequence = 0;
-  lines.on("line", (line) => {
-    const message = JSON.parse(line);
-    const reply = replies.get(message.id);
-    if (reply) reply.resolve(message);
-  });
-  function fail(error) {
-    for (const reply of replies.values()) reply.reject(error);
-  }
-  child.on("error", fail);
-  child.on("exit", () => fail(Error("MCP process exited")));
-  child.stdin.on("error", fail);
-  function send(method, params, id) {
-    child.stdin.write(JSON.stringify({ jsonrpc: "2.0", method, params, id }) + "\n");
-  }
-  async function request(method, params) {
-    const id = ++sequence;
-    let timer;
-    try {
-      const message = await new Promise((resolve, reject) => {
-        replies.set(id, { resolve, reject });
-        timer = setTimeout(() => reject(Error("MCP timed out")), 48_000);
-        send(method, params, id);
-      });
-      if (message.error || message.result?.isError) throw Error("MCP tool or protocol error");
-      return message.result;
-    } finally {
-      clearTimeout(timer);
-      replies.delete(id);
-    }
-  }
-  try {
-    await request("initialize", {
-      protocolVersion: "2025-03-26", capabilities: {}, clientInfo: { name: "benchmark", version: "1" },
-    });
-    send("notifications/initialized");
-  } catch (error) {
-    child.kill();
-    throw error;
-  }
-  return {
-    call: (name, args) => request("tools/call", { name, arguments: args }),
-    close: async () => { child.stdin.end(); await closed; },
-  };
 }
 
 function nativeResults(text) {
@@ -123,7 +70,7 @@ async function fixture() {
   const url = "http://127.0.0.1:" + stub.address().port;
   let client;
   try {
-    client = await mcp(wrapper, { ...process.env, RUSTXNG_URL: url });
+    client = await mcp(wrapper, { ...withoutDiskCache, RUSTXNG_URL: url });
     const methods = [
       ["http", async () => (await httpSearch(url, "fixture", "en")).results],
       ["mcp", async () => (await client.call("rustxng_research", { query: "fixture", limit })).structuredContent.results],
@@ -145,7 +92,7 @@ async function fixture() {
 }
 
 await fixture();
-const client = await mcp(wrapper, { ...process.env, RUSTXNG_URL: base });
+const client = await mcp(wrapper, { ...withoutDiskCache, RUSTXNG_URL: base });
 let full;
 try {
   const profiles = [

@@ -1,3 +1,6 @@
+mod disk_cache;
+
+use disk_cache::DiskCache;
 use reqwest::{Client, Url, redirect::Policy};
 use rmcp::{
     ErrorData, ServerHandler, ServiceExt, handler::server::wrapper::Parameters,
@@ -56,6 +59,7 @@ struct SearchResults {
 struct RustXng {
     client: Client,
     search_url: Url,
+    disk_cache: Option<DiskCache>,
 }
 
 impl RustXng {
@@ -82,6 +86,7 @@ impl RustXng {
         Ok(Self {
             client,
             search_url: url,
+            disk_cache: None,
         })
     }
 
@@ -134,7 +139,13 @@ impl RustXng {
         let _permit = REQUESTS.try_acquire().map_err(|_| {
             ErrorData::internal_error("RustXNG request limit reached; try again shortly", None)
         })?;
-        let mut response = self.client.get(url).send().await.map_err(|_| {
+        let cache = self.disk_cache.as_ref().filter(|_| !research);
+        if let Some(cache) = cache
+            && let Some(value) = cache.read(&url).await
+        {
+            return Ok(CallToolResult::structured(value));
+        }
+        let mut response = self.client.get(url.clone()).send().await.map_err(|_| {
             ErrorData::internal_error("Could not reach RustXNG within the request deadline", None)
         })?;
         if !response.status().is_success() {
@@ -171,8 +182,16 @@ impl RustXng {
                 "RustXNG omitted page text and retrieval status. Check page fetching on the RustXNG server, including its upstream proxy configuration.",
             );
         }
+        let cache = cache.filter(|_| {
+            !parsed.results.is_empty()
+                && parsed.unresponsive_engines.is_empty()
+                && parsed.results.iter().all(|row| row.raw_content.is_none())
+        });
         let value = serde_json::to_value(parsed)
             .map_err(|_| ErrorData::internal_error("Could not encode the tool result", None))?;
+        if let Some(cache) = cache {
+            cache.save(&url, &value).await;
+        }
         Ok(CallToolResult::structured(value))
     }
 }
@@ -210,11 +229,17 @@ impl ServerHandler for RustXng {}
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     let endpoint = env::var("RUSTXNG_URL").unwrap_or_else(|_| DEFAULT_ENDPOINT.into());
-    RustXng::new(&endpoint)?
-        .serve(stdio())
-        .await?
-        .waiting()
-        .await?;
+    let mut tool = RustXng::new(&endpoint)?;
+    if let Some(path) = env::var_os("RUSTXNG_DISK_CACHE_PATH").filter(|path| !path.is_empty()) {
+        let ttl = env::var("RUSTXNG_DISK_CACHE_TTL_SECONDS")
+            .unwrap_or_else(|_| "600".into())
+            .parse::<u64>()?;
+        if !(10..=3600).contains(&ttl) {
+            return Err("RUSTXNG_DISK_CACHE_TTL_SECONDS must be between 10 and 3600".into());
+        }
+        tool.disk_cache = Some(DiskCache::open(std::path::Path::new(&path), ttl)?);
+    }
+    tool.serve(stdio()).await?.waiting().await?;
     Ok(())
 }
 
