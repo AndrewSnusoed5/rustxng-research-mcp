@@ -12,7 +12,7 @@ The [engine comparison](docs/searxng-vs-rustxng.md) tests both services directly
 
 In our direct HTTP benchmark, RustXNG retrieved the reference in 12/12
 topics per pass and answered identical repeats in 1–2 ms. SearXNG had the
-lower first-pass median. [First-query tuning and durable cache](docs/rustxng-first-query.md)
+lower first-pass median. [Matched-work test and latency breakdown](docs/architecture-latency.md) · [First-query tuning and durable cache](docs/rustxng-first-query.md)
 
 ## Quick start
 

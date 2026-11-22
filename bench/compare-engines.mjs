@@ -6,6 +6,7 @@ if (!searxng || !rustxng) {
   throw Error("Usage: node bench/compare-engines.mjs <SearXNG base URL> <RustXNG base URL>");
 }
 const trials = Number(process.env.BENCH_ENGINE_TRIALS ?? 2);
+const collectTimings = process.argv.includes("--timings");
 if (!Number.isSafeInteger(trials) || trials < 1) throw Error("BENCH_ENGINE_TRIALS must be a positive integer");
 const engineSets = (process.env.BENCH_ENGINE_SETS ?? "wikipedia;wikipedia,wiby").split(";");
 
@@ -14,7 +15,10 @@ const profiles = [["searxng", searxng], ["rustxng", rustxng]];
 async function sample([profile, base], trial, engines, [topic, query, language, article]) {
   const url = new URL("search", base.replace(/\/?$/, "/"));
   url.search = new URLSearchParams({ format: "json", q: query, language, engines, safesearch: "0" });
-  if (profile === "rustxng") url.searchParams.set("strict_engines", "1");
+  if (profile === "rustxng") {
+    url.searchParams.set("strict_engines", "1");
+    if (collectTimings) url.searchParams.set("full", "1");
+  }
   const start = performance.now();
   const row = { profile, trial, engines, topic };
   try {
@@ -28,9 +32,15 @@ async function sample([profile, base], trial, engines, [topic, query, language, 
     const allowed = new Set(engines.split(","));
     if ([...used].some((engine) => !allowed.has(engine))) throw Error("Unexpected engine in top-five results");
     const rank = returned.findIndex((result) => isReference(result.url, language, article)) + 1;
+    const header = response.headers.get("server-timing") ?? "";
+    const engineMs = profile === "rustxng"
+      ? Object.fromEntries((payload.timings ?? []).map(({ engine, total }) => [engine, +(total * 1000).toFixed(2)]))
+      : Object.fromEntries([...header.matchAll(/total_\d+_([^;]+);dur=([\d.]+)/g)]
+          .map(([, name, duration]) => [name, Number(duration)]));
     return {
       ...row, ms, results: payload.results.length, top5: returned.length, rank,
       engineFailures: payload.unresponsive_engines?.length ?? 0,
+      ...(collectTimings ? { engineMs } : {}),
     };
   } catch (error) {
     return { ...row, error: error.message };

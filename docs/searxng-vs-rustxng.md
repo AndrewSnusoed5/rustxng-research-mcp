@@ -26,6 +26,8 @@ each pass. SearXNG did so for 10 and missed the expected articles for
 “Mars rover Curiosity” and “Voyager 1 spacecraft.” The routes had zero
 HTTP errors and reported zero engine failures. [All 96 numeric records](engine-benchmark-results.jsonl)
 
+With the same HTTPS provider payload and ten identical result rows, the two services measured 3.841 ms and 0.806 ms at p50. [Matched-work test and architecture notes](architecture-latency.md).
+
 ## Setup and scope
 
 - 22 November 2026, Windows 11, loopback HTTP and live upstream providers.
