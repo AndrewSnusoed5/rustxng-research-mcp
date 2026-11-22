@@ -134,7 +134,7 @@ def comparison_rows(label, before, after, precision):
             for name, metric in (("p50", median), ("p90", p90))]
 
 
-def latency_comparison(axis, rows, ticks):
+def latency_comparison(axis, rows, ticks, column_title="SEARXNG → RUSTXNG"):
     positions = list(reversed(range(len(rows))))
     faster = "#137571"
     slower = "#a34021"
@@ -157,7 +157,7 @@ def latency_comparison(axis, rows, ticks):
         axis.text(1.25, y, f"{before:,.{precision}f} → {after:,.{precision}f} ms",
                   va="center", transform=transform)
     axis.text(1.05, 1.05, "CHANGE", transform=axis.transAxes, fontsize=9, color=MUTED)
-    axis.text(1.25, 1.05, "SEARXNG → RUSTXNG", transform=axis.transAxes, fontsize=9, color=MUTED)
+    axis.text(1.25, 1.05, column_title, transform=axis.transAxes, fontsize=9, color=MUTED)
 
 
 def engines_chart():
@@ -249,9 +249,31 @@ def fresh_user_chart():
     plt.close(figure)
 
 
+def candidate_chart():
+    samples = comparison_groups("fresh-user-candidate-results.jsonl", "profile")
+    rows = []
+    candidate = [row["ms"] for row in samples["rustxng-candidate",] if "ms" in row]
+    for label, profile in (("RustXNG release", "rustxng"), ("SearXNG", "searxng")):
+        prior = [row["ms"] for row in samples[profile,] if "ms" in row]
+        rows.extend(comparison_rows(label, prior, candidate, 1))
+    figure, axis = plt.subplots(figsize=(12.6, 3.9))
+    figure.subplots_adjust(left=0.23, right=0.715, top=0.64, bottom=0.25)
+    figure.text(0.055, 0.87, "Newer RustXNG build on live searches", fontsize=24, fontweight="bold")
+    figure.text(0.055, 0.76, "Revision 742dc97 · Three-way HTML run · 18 different queries per service", color=MUTED)
+    latency_comparison(axis, rows, [-30, -20, -10, 0, 10], "BASELINE → NEW BUILD")
+    hits = [sum(row.get("rank", 0) > 0 for row in samples[profile,])
+            for profile in ("searxng", "rustxng", "rustxng-candidate")]
+    figure.text(0.055, 0.08, "Reference hit@5 · " + "   |   ".join(
+        f"{name} {count}/{len(candidate)}" for name, count in zip(("SearXNG", "Release", "New build"), hits)),
+        fontsize=10, color=MUTED)
+    figure.savefig(DOCS / "fresh-user-candidate.png", dpi=175)
+    plt.close(figure)
+
+
 if __name__ == "__main__":
     live_chart()
     fetch_chart()
     engines_chart()
     matched_chart()
     fresh_user_chart()
+    candidate_chart()

@@ -14,6 +14,12 @@ In a separate diagnostic JSON run it had a **16.5% longer median** and a
 
 ![Latency of new searches on four live providers](docs/fresh-user-search.png)
 
+In a follow-up HTML run, a newer RustXNG source build cut the release's
+median by **14.4%** (520 → 445 ms) and p90 by **17.2%** (871 → 721 ms),
+with the same **8/18** reference hits. Its median was **2.5% longer**
+than SearXNG's in that run, and its p90 was **27.5% shorter**.
+[Three-way comparison and build instructions](docs/fresh-user-search.md#a-newer-rustxng-build)
+
 ### Earlier Wikipedia and Wiby panel
 
 | Direct HTTP search | RustXNG change vs SearXNG |

@@ -1,0 +1,54 @@
+{"profile":"searxng","format":"html","topic":"HTTP terminology","language":"en","idleMs":null,"ms":848.07,"headersMs":846.68,"results":12,"rank":0,"engineMs":{"wikipedia":387.618,"github":564.794,"hackernews":607.092,"wiby":770.249}}
+{"profile":"rustxng","format":"html","topic":"HTTP terminology","language":"en","idleMs":null,"ms":863.28,"headersMs":863.04,"results":22,"rank":0,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"HTTP terminology","language":"en","idleMs":null,"ms":720.91,"headersMs":720.69,"results":22,"rank":0,"engineMs":{}}
+{"profile":"rustxng","format":"html","topic":"Python library","language":"en","idleMs":6034,"ms":1361.97,"headersMs":1343.31,"results":62,"rank":0,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"Python library","language":"en","idleMs":6438,"ms":676.73,"headersMs":656.61,"results":62,"rank":0,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Python library","language":"en","idleMs":9639,"ms":1305.35,"headersMs":1303.97,"results":72,"rank":0,"engineMs":{"wikipedia":96.91,"wiby":352.814,"hackernews":529.776,"github":1244.034}}
+{"profile":"rustxng-candidate","format":"html","topic":"Space mission","language":"en","idleMs":5950,"ms":455.74,"headersMs":455.52,"results":15,"rank":1,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Space mission","language":"en","idleMs":5326,"ms":354.94,"headersMs":354.53,"results":5,"rank":0,"engineMs":{"wikipedia":95.764,"github":304.211,"wiby":317.449,"hackernews":338.111}}
+{"profile":"rustxng","format":"html","topic":"Space mission","language":"en","idleMs":8847,"ms":575.15,"headersMs":574.86,"results":15,"rank":1,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Rust async","language":"en","idleMs":6552,"ms":489.34,"headersMs":488.9,"results":13,"rank":0,"engineMs":{"wikipedia":94.323,"github":257.447,"wiby":305.576,"hackernews":469.07}}
+{"profile":"rustxng","format":"html","topic":"Rust async","language":"en","idleMs":6339,"ms":468.72,"headersMs":468.54,"results":14,"rank":0,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"Rust async","language":"en","idleMs":9775,"ms":435.2,"headersMs":434.99,"results":14,"rank":0,"engineMs":{}}
+{"profile":"rustxng","format":"html","topic":"Optics","language":"ru","idleMs":6423,"ms":694.13,"headersMs":693.98,"results":10,"rank":1,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"Optics","language":"ru","idleMs":6448,"ms":672.07,"headersMs":671.92,"results":10,"rank":1,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Optics","language":"ru","idleMs":9712,"ms":411.5,"headersMs":411.23,"results":0,"rank":0,"engineMs":{"github":266.122,"wiby":276.334,"hackernews":348.066,"wikipedia":385.129}}
+{"profile":"rustxng-candidate","format":"html","topic":"Historical game","language":"en","idleMs":6234,"ms":413.19,"headersMs":413.05,"results":20,"rank":0,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Historical game","language":"en","idleMs":6498,"ms":387.45,"headersMs":387.03,"results":11,"rank":0,"engineMs":{"wikipedia":96.983,"wiby":342.188,"github":342.991,"hackernews":368.868}}
+{"profile":"rustxng","format":"html","topic":"Historical game","language":"en","idleMs":9522,"ms":551.6,"headersMs":551.46,"results":21,"rank":0,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Graphics API","language":"en","idleMs":6523,"ms":387.9,"headersMs":387.61,"results":11,"rank":0,"engineMs":{"wikipedia":94.827,"wiby":313.142,"github":360.549,"hackernews":369.249}}
+{"profile":"rustxng","format":"html","topic":"Graphics API","language":"en","idleMs":6352,"ms":411.3,"headersMs":411.14,"results":21,"rank":0,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"Graphics API","language":"en","idleMs":9808,"ms":399.75,"headersMs":399.62,"results":21,"rank":0,"engineMs":{}}
+{"profile":"rustxng","format":"html","topic":"Database internals","language":"en","idleMs":6495,"ms":479.39,"headersMs":479.24,"results":17,"rank":1,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"Database internals","language":"en","idleMs":6501,"ms":442.2,"headersMs":442.07,"results":17,"rank":1,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Database internals","language":"en","idleMs":9833,"ms":412.32,"headersMs":412.1,"results":11,"rank":2,"engineMs":{"wikipedia":94.74,"github":290.793,"hackernews":383.694,"wiby":394.72}}
+{"profile":"rustxng-candidate","format":"html","topic":"Geography","language":"ru","idleMs":6461,"ms":494.56,"headersMs":494.42,"results":10,"rank":0,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Geography","language":"ru","idleMs":6479,"ms":445.45,"headersMs":445.27,"results":0,"rank":0,"engineMs":{"wikipedia":92.454,"wiby":262.022,"github":272.592,"hackernews":431.557}}
+{"profile":"rustxng","format":"html","topic":"Geography","language":"ru","idleMs":9731,"ms":418.63,"headersMs":418.48,"results":10,"rank":0,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Public domain","language":"en","idleMs":6464,"ms":928.71,"headersMs":928.18,"results":51,"rank":0,"engineMs":{"wikipedia":96.613,"hackernews":445.493,"wiby":655.335,"github":895.49}}
+{"profile":"rustxng","format":"html","topic":"Public domain","language":"en","idleMs":6491,"ms":755.33,"headersMs":755.09,"results":56,"rank":3,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"Public domain","language":"en","idleMs":9733,"ms":448.09,"headersMs":447.91,"results":56,"rank":3,"engineMs":{}}
+{"profile":"rustxng","format":"html","topic":"Web framework","language":"en","idleMs":6153,"ms":871.15,"headersMs":870.88,"results":51,"rank":0,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"Web framework","language":"en","idleMs":6453,"ms":415.61,"headersMs":415.32,"results":51,"rank":0,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Web framework","language":"en","idleMs":9303,"ms":994.37,"headersMs":993.79,"results":61,"rank":0,"engineMs":{"wikipedia":95.875,"wiby":286.275,"hackernews":579.125,"github":957.174}}
+{"profile":"rustxng-candidate","format":"html","topic":"Astronomy","language":"en","idleMs":6489,"ms":378.12,"headersMs":377.99,"results":22,"rank":3,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Astronomy","language":"en","idleMs":5898,"ms":423.22,"headersMs":422.9,"results":12,"rank":0,"engineMs":{"wikipedia":94.411,"github":314.839,"hackernews":358.123,"wiby":403.519}}
+{"profile":"rustxng","format":"html","topic":"Astronomy","language":"en","idleMs":9354,"ms":369.52,"headersMs":369.31,"results":22,"rank":3,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Open source reader","language":"en","idleMs":6481,"ms":569.85,"headersMs":557.85,"results":2,"rank":0,"engineMs":{"wikipedia":95.869,"wiby":298.361,"github":352.672,"hackernews":533.613}}
+{"profile":"rustxng","format":"html","topic":"Open source reader","language":"en","idleMs":6524,"ms":490.68,"headersMs":490.53,"results":6,"rank":0,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"Open source reader","language":"en","idleMs":9845,"ms":440.05,"headersMs":439.92,"results":6,"rank":0,"engineMs":{}}
+{"profile":"rustxng","format":"html","topic":"Historical event","language":"ru","idleMs":6411,"ms":431.81,"headersMs":431.67,"results":10,"rank":2,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"Historical event","language":"ru","idleMs":6451,"ms":419.9,"headersMs":419.77,"results":10,"rank":2,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Historical event","language":"ru","idleMs":9642,"ms":383.46,"headersMs":383.25,"results":1,"rank":1,"engineMs":{"wikipedia":95.301,"wiby":251.359,"github":272.594,"hackernews":367.184}}
+{"profile":"rustxng-candidate","format":"html","topic":"Web archive","language":"en","idleMs":6491,"ms":1173.2,"headersMs":1153.09,"results":62,"rank":2,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Web archive","language":"en","idleMs":6613,"ms":905.23,"headersMs":904.53,"results":73,"rank":1,"engineMs":{"wikipedia":185.011,"wiby":354.714,"hackernews":421.408,"github":863.781}}
+{"profile":"rustxng","format":"html","topic":"Web archive","language":"en","idleMs":9884,"ms":549.26,"headersMs":549.09,"results":62,"rank":2,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Image codec","language":"en","idleMs":5905,"ms":371.5,"headersMs":371.16,"results":7,"rank":0,"engineMs":{"wikipedia":100.385,"wiby":269.019,"github":288.196,"hackernews":354.34}}
+{"profile":"rustxng","format":"html","topic":"Image codec","language":"en","idleMs":6251,"ms":478.22,"headersMs":478.08,"results":9,"rank":0,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"Image codec","language":"en","idleMs":9027,"ms":354.48,"headersMs":354.34,"results":9,"rank":0,"engineMs":{}}
+{"profile":"rustxng","format":"html","topic":"Computing history","language":"en","idleMs":6426,"ms":574.6,"headersMs":574.46,"results":17,"rank":2,"engineMs":{}}
+{"profile":"rustxng-candidate","format":"html","topic":"Computing history","language":"en","idleMs":6554,"ms":487.42,"headersMs":487.29,"results":17,"rank":2,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Computing history","language":"en","idleMs":9842,"ms":525.64,"headersMs":525.42,"results":7,"rank":0,"engineMs":{"wikipedia":99.203,"github":318.927,"hackernews":366.016,"wiby":508.281}}
+{"profile":"rustxng-candidate","format":"html","topic":"Container tooling","language":"en","idleMs":6412,"ms":687.72,"headersMs":687.6,"results":1,"rank":0,"engineMs":{}}
+{"profile":"searxng","format":"html","topic":"Container tooling","language":"en","idleMs":6378,"ms":368.63,"headersMs":368.43,"results":0,"rank":0,"engineMs":{"wikipedia":93.958,"github":276.454,"wiby":293.935,"hackernews":354.231}}
+{"profile":"rustxng","format":"html","topic":"Container tooling","language":"en","idleMs":9639,"ms":369.07,"headersMs":368.95,"results":1,"rank":0,"engineMs":{}}

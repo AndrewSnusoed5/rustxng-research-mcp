@@ -88,6 +88,41 @@ without wiring it into the reqwest client builder. The live spread
 between instances cannot be attributed to that setting.
 [Socket fixture records](provider-idle-results.jsonl) · [Released client builder](https://github.com/TKY-27/RustXNG/blob/0aa36b3/src/network.rs)
 
+## A newer RustXNG build
+
+The post-release RustXNG revision 742dc97 includes a change to parallel
+search. Once results reach a minimum count, it allows the slow
+providers a bounded grace period. It also overlaps upstream work in
+some search paths. The candidate includes changes to result merging
+and ranking, so this test measures the whole build. The version string
+still says 0.32.0.
+[Revision tested](https://github.com/TKY-27/RustXNG/commit/742dc9742b8cd0af97a946f58e50ffe350ae032c) · [Grace-window implementation](https://github.com/TKY-27/RustXNG/commit/c873c36ebd8c18d500dd4e07c7fe74cfad9ba61f)
+
+The same 18 HTML queries ran on fresh instances of all three services
+in one round-robin test.
+
+![First HTML requests in the three-way live comparison](fresh-user-candidate.png)
+
+| Service | HTML p50 | HTML p90 | Reference in top five | Median rows | Empty |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| SearXNG | 434.34 ms | 994.37 ms | 3/18 | 11 | 3/18 |
+| RustXNG v0.32.0 release | 519.97 ms | 871.15 ms | 8/18 | 17 | 0/18 |
+| RustXNG 742dc97, source build | 445.14 ms | 720.91 ms | 8/18 | 17 | 0/18 |
+
+The newer build beat the release on **14/18** requests. Its median fell
+by **14.4%** and p90 fell by **17.2%**. The same eight references kept
+their rankings in the top five. One query returned 20 rows where the
+release returned 21. All other row counts matched. Against SearXNG
+in this run, the newer RustXNG median was **2.5% longer**, and its p90
+was **27.5% shorter**. It beat SearXNG on **9/18** individual requests.
+[All 54 records from the candidate run](fresh-user-candidate-results.jsonl)
+
+A local index is another way to shorten the first search of an unseen
+phrase over a known collection. The index answers over documents that
+are already on disk. Its coverage depends on the collection. Search
+engines that still query the web remain subject to remote latency.
+[RustXNG local indexing documentation](https://github.com/TKY-27/RustXNG/blob/742dc9742b8cd0af97a946f58e50ffe350ae032c/docs/LOCAL-INDEX.md)
+
 ## Reproduce
 
 The live runner creates private loopback instances and leaves the
@@ -103,5 +138,16 @@ node bench/fresh-user-search.mjs /path/to/rustxng /path/to/python /path/to/searx
 /path/to/python bench/wiki-provider.py > docs/wiki-provider-results.jsonl
 BENCH_RUST_KEEPALIVE_SECONDS=5 node bench/matched-provider.mjs /path/to/rustxng /path/to/python /path/to/searxng --idle > docs/provider-idle-results.jsonl
 BENCH_RUST_KEEPALIVE_SECONDS=30 node bench/matched-provider.mjs /path/to/rustxng /path/to/python /path/to/searxng --idle >> docs/provider-idle-results.jsonl
+~~~
+
+For the candidate comparison, build the pinned RustXNG source revision
+in a separate directory with Cargo and the platform's build tools.
+Pass the built binary as the last argument.
+
+~~~sh
+git clone https://github.com/TKY-27/RustXNG.git
+git -C RustXNG checkout --detach 742dc9742b8cd0af97a946f58e50ffe350ae032c
+cargo build --manifest-path RustXNG/Cargo.toml --release --locked --bin rustxng
+node bench/fresh-user-search.mjs /path/to/rustxng /path/to/python /path/to/searxng html ./RustXNG/target/release/rustxng > docs/fresh-user-candidate-results.jsonl
 python bench/plot.py
 ~~~
