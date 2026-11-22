@@ -6,13 +6,29 @@ A small Rust MCP server that connects AI clients to a self-hosted RustXNG instan
 
 ## SearXNG vs RustXNG
 
-![Direct SearXNG versus RustXNG search latency, repeat latency and top-five retrieval](docs/searxng-vs-rustxng.png)
+| Direct HTTP search | RustXNG change vs SearXNG |
+| --- | --- |
+| First pass, Wikipedia | **18.8% longer** at p50 · **52.1% shorter** at p90 |
+| First pass, Wikipedia + Wiby | **88.5% longer** at p50 · **164.4% longer** at p90 |
+| Identical repeat, both engine sets | **98.9–99.1% shorter** at p50 · **98.7–98.8% shorter** at p90 |
+| Expected article in the top five | **83.3% → 100%** per engine set · **+16.7 percentage points** |
+| Median result rows | **1 → 10** for Wikipedia (+900%) · **12 → 21.5** for Wikipedia + Wiby (+79.2%) |
 
-The [engine comparison](docs/searxng-vs-rustxng.md) tests both services directly with identical query text and shared engines. [Separate adapter and downloader results](docs/benchmarks.md) cover the MCP layer and full-page retrieval.
+![Live SearXNG vs RustXNG search comparison with first pass and repeat latency, top-five hits, and result counts](docs/searxng-vs-rustxng.png)
 
-In our direct HTTP benchmark, RustXNG retrieved the reference in 12/12
-topics per pass and answered identical repeats in 1–2 ms. SearXNG had the
-lower first-pass median. [Matched-work test and latency breakdown](docs/architecture-latency.md) · [First-query tuning and durable cache](docs/rustxng-first-query.md)
+The live comparison covers 12 topics and 96 direct HTTP searches. Both
+services received the same query text and engine names, with the
+slowest engine accounting for 98.1–99.7% of request time at the median
+in a follow-up run. Repeated searches include caching. [Full live results and raw measurements](docs/searxng-vs-rustxng.md)
+
+With one identical HTTPS provider request and ten identical result rows
+per search, RustXNG's median was **79.0% lower** on the local fixture
+(3.841 → 0.806 ms) and **4.3% lower** with an 80 ms provider timer
+(93.748 → 89.745 ms). [180-sample matched-work test and method](docs/architecture-latency.md#matched-work-on-the-same-provider)
+
+![Matched provider comparison with absolute timings and percentage changes](docs/matched-provider-comparison.png)
+
+[First-query tuning and durable cache](docs/rustxng-first-query.md) · [Separate MCP adapter and page retrieval benchmarks](docs/benchmarks.md)
 
 ## Quick start
 

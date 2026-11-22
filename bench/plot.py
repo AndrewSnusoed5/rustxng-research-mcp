@@ -120,52 +120,106 @@ def fetch_chart():
     plt.close(figure)
 
 
-def engines_chart():
+def comparison_groups(filename, *keys):
     groups = defaultdict(list)
-    with (DOCS / "engine-benchmark-results.jsonl").open(encoding="utf-8-sig") as stream:
+    with (DOCS / filename).open(encoding="utf-8-sig") as stream:
         for line in stream:
             row = json.loads(line)
-            groups[row["engines"], row["profile"], row["trial"]].append(row)
-    rows = [(engines, profile) for engines in ("wikipedia", "wikipedia,wiby")
-            for profile in ("searxng", "rustxng")]
-    first = [[row["ms"] for row in groups[engines, profile, 1] if not row.get("error")]
-             for engines, profile in rows]
-    repeated = [[row["ms"] for row in groups[engines, profile, 2] if not row.get("error")]
-                for engines, profile in rows]
-    controls = [sum(row.get("rank", 0) > 0 for trial in (1, 2)
-                    for row in groups[engines, profile, trial])
-                for engines, profile in rows]
-    medians = [median(values) for values in first]
-    tails = [p90(values) for values in first]
-    warm = [median(values) for values in repeated]
+            groups[tuple(row[key] for key in keys)].append(row)
+    return groups
 
-    figure, axes = plt.subplots(1, 3, figsize=(13.4, 5.0), gridspec_kw={"wspace": 0.37})
-    figure.subplots_adjust(left=0.18, right=0.95, top=0.68, bottom=0.17)
-    figure.text(0.06, 0.89, "SearXNG vs RustXNG", fontsize=25, fontweight="bold")
-    figure.text(0.06, 0.81, "Same Windows host • Direct JSON search • 12 queries per engine set, repeated once", color=MUTED)
-    positions = [3.15, 2.45, 1.25, 0.55]
-    colors = ["#365981", "#177d79"] * 2
-    labels = ["SearXNG · Wikipedia", "RustXNG · Wikipedia",
-              "SearXNG · Wiki + Wiby", "RustXNG · Wiki + Wiby"]
-    maximum = max(tails) * 1.27
-    chart_axis(axes[0], "First pass · p90 / p50", maximum, "Milliseconds")
-    annotated_bars(axes[0], [y + 0.115 for y in positions], tails, "#b9cbdf",
-                   [f"{x:.0f}" for x in tails], maximum * 0.02, height=0.19)
-    annotated_bars(axes[0], [y - 0.115 for y in positions], medians, colors,
-                   [f"{x:.0f}" for x in medians], maximum * 0.02, height=0.19)
-    axes[0].set_yticks(positions, labels)
-    chart_axis(axes[1], "Repeated pass · p50", max(warm) * 1.24, "Milliseconds")
-    annotated_bars(axes[1], positions, warm, colors,
-                   [f"{x:.1f}" for x in warm], max(warm) * 0.021)
-    chart_axis(axes[2], "Reference in top five", 29, "Hits across two passes")
-    annotated_bars(axes[2], positions, controls, colors,
-                   [f"{x}/24" for x in controls], 0.55)
-    for axis in axes[1:]:
-        axis.set_yticks(positions, [""] * len(positions))
-        axis.set_ylim(axes[0].get_ylim())
-    figure.text(0.06, 0.052, "Repeated calls include cache effects. Live timings include both the metasearch service and the provider round trips.",
+
+def comparison_rows(label, before, after, precision):
+    return [(f"{label} · {name}", metric(before), metric(after), precision)
+            for name, metric in (("p50", median), ("p90", p90))]
+
+
+def latency_comparison(axis, rows, ticks):
+    positions = list(reversed(range(len(rows))))
+    faster = "#137571"
+    slower = "#a34021"
+    changes = [100 * (after / before - 1) for _, before, after, _ in rows]
+    colors = [faster if change < 0 else slower for change in changes]
+    axis.set_xlim(ticks[0] - 10, ticks[-1] + 10)
+    axis.set_ylim(-0.65, len(rows) - 0.35)
+    axis.set_xticks(ticks, [f"{tick:+g}%" if tick else "0%" for tick in ticks])
+    axis.set_yticks(positions, [label for label, *_ in rows])
+    axis.set_axisbelow(True)
+    axis.grid(axis="x", color=GRID, linewidth=0.8)
+    axis.axvline(0, color=MUTED, linewidth=0.9)
+    axis.tick_params(axis="both", length=0)
+    for spine in axis.spines.values():
+        spine.set_visible(False)
+    axis.barh(positions, changes, color=colors, height=0.52)
+    transform = axis.get_yaxis_transform()
+    for y, change, color, (_, before, after, precision) in zip(positions, changes, colors, rows):
+        axis.text(1.05, y, f"{change:+.1f}%", color=color, fontweight="bold", va="center", transform=transform)
+        axis.text(1.25, y, f"{before:,.{precision}f} → {after:,.{precision}f} ms",
+                  va="center", transform=transform)
+    axis.text(1.05, 1.05, "CHANGE", transform=axis.transAxes, fontsize=9, color=MUTED)
+    axis.text(1.25, 1.05, "SEARXNG → RUSTXNG", transform=axis.transAxes, fontsize=9, color=MUTED)
+
+
+def engines_chart():
+    groups = comparison_groups("engine-benchmark-results.jsonl", "engines", "profile", "trial")
+    engine_sets = [("Wikipedia", "wikipedia"), ("Wikipedia + Wiby", "wikipedia,wiby")]
+    profiles = ("searxng", "rustxng")
+    first, repeat = [], []
+    for label, engines in engine_sets:
+        for trial, rows in ((1, first), (2, repeat)):
+            before, after = ([row["ms"] for row in groups[engines, profile, trial] if not row.get("error")]
+                             for profile in profiles)
+            rows.extend(comparison_rows(label, before, after, 2))
+
+    figure, axes = plt.subplots(2, 1, figsize=(12.6, 6.9))
+    figure.subplots_adjust(left=0.24, right=0.715, top=0.76, bottom=0.23, hspace=0.69)
+    figure.text(0.055, 0.92, "SearXNG vs RustXNG", fontsize=25, fontweight="bold")
+    topics = {row["topic"] for rows in groups.values() for row in rows}
+    calls = sum(map(len, groups.values()))
+    figure.text(0.055, 0.867, f"Live providers · Same {len(topics)} topics and host · {calls} direct HTTP searches", color=MUTED)
+    for axis, title, rows in zip(axes, ("First pass", "Identical repeat"), (first, repeat)):
+        axis.set_title(title, loc="left", fontsize=14, fontweight="bold", pad=12)
+        latency_comparison(axis, rows, [-100, -50, 0, 50, 100, 150, 200])
+
+    hit_labels = []
+    result_labels = []
+    for name, engines in engine_sets:
+        combined = [[row for trial in (1, 2) for row in groups[engines, profile, trial]]
+                    for profile in profiles]
+        (before, total_before), (after, total_after) = [
+            (sum(row.get("rank", 0) > 0 for row in rows), len(rows)) for rows in combined
+        ]
+        points = 100 * (after / total_after - before / total_before)
+        hit_labels.append(f"{name} {before}/{total_before} → {after}/{total_after} ({points:+.1f} pp)")
+        before, after = [median(row["results"] for row in rows) for rows in combined]
+        change = 100 * (after / before - 1)
+        result_labels.append(f"{name} {before:g} → {after:g} ({change:+.1f}%)")
+    figure.text(0.055, 0.126, f"Reference hit@5 · {'   |   '.join(hit_labels)}",
+                fontsize=12, fontweight="bold")
+    figure.text(0.055, 0.084, f"Median result rows · {'   |   '.join(result_labels)}", color=MUTED)
+    figure.text(0.055, 0.037, "Negative values mean lower latency. Identical repeats include caching. Provider adapters can issue different requests.",
                 color=MUTED, fontsize=9)
     figure.savefig(DOCS / "searxng-vs-rustxng.png", dpi=175)
+    plt.close(figure)
+
+
+def matched_chart():
+    groups = comparison_groups("matched-provider-results.jsonl", "mode", "profile")
+    rows = []
+    for label, mode in (("Local HTTPS", "local"), ("HTTPS + 80 ms timer", "delay")):
+        before, after = ([row["totalMs"] for row in groups[mode, profile]]
+                         for profile in ("searxng", "rustxng"))
+        rows.extend(comparison_rows(label, before, after, 3))
+
+    figure, axis = plt.subplots(figsize=(12.6, 4.0))
+    figure.subplots_adjust(left=0.25, right=0.715, top=0.68, bottom=0.25)
+    figure.text(0.055, 0.87, "Same provider request and results", fontsize=24, fontweight="bold")
+    calls = sum(map(len, groups.values()))
+    figure.text(0.055, 0.77, f"One HTTPS call and the same ten result rows per search · {calls} direct HTTP searches", color=MUTED)
+    latency_comparison(axis, rows, [-100, -75, -50, -25, 0])
+    figure.text(0.055, 0.088, "Negative values mean lower latency. Queries were unique and connection pools were warmed.",
+                color=MUTED, fontsize=9)
+    figure.savefig(DOCS / "matched-provider-comparison.png", dpi=175)
     plt.close(figure)
 
 
@@ -173,3 +227,4 @@ if __name__ == "__main__":
     live_chart()
     fetch_chart()
     engines_chart()
+    matched_chart()

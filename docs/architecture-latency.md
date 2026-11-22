@@ -32,6 +32,12 @@ The share and residual columns are medians of per-request calculations.
 | Wikipedia + Wiby | SearXNG | 325.00 ms | 322.65 ms | 99.3% | 2.37 ms |
 | Wikipedia + Wiby | RustXNG | 566.16 ms | 564.29 ms | 99.6% | 1.69 ms |
 
+Relative to SearXNG in this follow-up, whole-request p50 was **245.7%
+higher** for Wikipedia and **74.2% higher** for Wikipedia + Wiby.
+The residual p50 outside the slowest engine was **41.3% lower**
+and **28.9% lower**, respectively. The residual includes other
+service work and HTTP handling on loopback.
+
 The Wikipedia + Wiby phase followed Wikipedia alone. It could reuse
 Wikipedia engine results, which happened on RustXNG. Provider timing can
 vary across runs, as the SearXNG Wikipedia median did between the original
@@ -49,19 +55,28 @@ runner checked output equality and exactly one provider call per search.
 Each measured query was new to the corresponding process. HTTP connection
 pools had five warm-up pairs per condition.
 
-| Provider timing | Samples per service | SearXNG p50 / p90 | RustXNG p50 / p90 |
-| --- | ---: | ---: | ---: |
-| Local HTTPS provider, no added wait | 60 | 3.841 / 4.139 ms | 0.806 / 0.958 ms |
-| Same provider, 80 ms timer before response | 30 | 93.748 / 95.927 ms | 89.745 / 92.407 ms |
+![SearXNG and RustXNG latency on matched HTTPS requests and equal results](matched-provider-comparison.png)
 
-With matching inputs and output, RustXNG used about **one-fifth of SearXNG's median time** in the
-low-latency fixture. From the point the fixture began sending the response
-to the point the client finished parsing the search JSON, the median was
-2.491 ms for SearXNG and 0.445 ms for RustXNG. This interval includes local
-transport, provider response processing, aggregation, and response handling
-in the client. With the added provider wait, the end-to-end difference
-was **4.0 ms**. The operating-system timer caused the measured waits to
-vary around 87–88 ms at p50.
+| Provider timing | Calls per service | p50 SearXNG → RustXNG | p90 SearXNG → RustXNG |
+| --- | ---: | ---: | ---: |
+| Local HTTPS provider, no added wait | 60 | 3.841 → 0.806 ms (**−79.0%**) | 4.139 → 0.958 ms (**−76.9%**) |
+| Same provider, 80 ms timer before response | 30 | 93.748 → 89.745 ms (**−4.3%**) | 95.927 → 92.407 ms (**−3.7%**) |
+
+On the no-delay fixture, SearXNG's median time was **4.77×** the
+RustXNG median. With the added provider wait, the end-to-end
+difference was **4.003 ms** at p50. The operating-system timer made
+the observed wait about 87–88 ms at p50.
+
+The interval from the start of the fixture's response to the end of
+JSON parsing includes local transport, provider response processing,
+aggregation, and client handling. These times use the same SearXNG
+baseline for the percentage.
+
+| Provider timing | Interval p50 SearXNG → RustXNG | Interval p90 SearXNG → RustXNG |
+| --- | ---: | ---: |
+| Local HTTPS provider, no added wait | 2.491 → 0.445 ms (**−82.1%**) | 2.689 → 0.526 ms (**−80.4%**) |
+| Same provider, 80 ms timer before response | 4.562 → 0.917 ms (**−79.9%**) | 4.949 → 0.977 ms (**−80.3%**) |
+
 [180 matched-work samples](matched-provider-results.jsonl)
 
 ## Wiby pagination check

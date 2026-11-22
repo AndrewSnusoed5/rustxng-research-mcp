@@ -7,26 +7,42 @@ uses shared engine names and the same queries, languages, and host.
 
 ![SearXNG and RustXNG compared on first-call latency, repeat latency and top-five retrieval](searxng-vs-rustxng.png)
 
-## Results
+## Live search latency
 
-| Engines | Service | First p50 | First p90 | Repeat p50 | Reference in top 5 | Median results |
-| --- | --- | ---: | ---: | ---: | ---: | ---: |
-| Wikipedia | SearXNG | 342.70 ms | 1,486.15 ms | 101.85 ms | 20/24 | 1 |
-| Wikipedia | RustXNG | 407.15 ms | 711.27 ms | 1.13 ms | 24/24 | 10 |
-| Wikipedia + Wiby | SearXNG | 316.36 ms | 362.44 ms | 178.23 ms | 20/24 | 12 |
-| Wikipedia + Wiby | RustXNG | 596.46 ms | 958.44 ms | 1.64 ms | 24/24 | 21.5 |
+Times are SearXNG → RustXNG. The percentage is the change from the
+SearXNG time, calculated from the unrounded statistics. Negative
+values mean shorter latency. Each table row is based on 12 calls per
+service. p50 is the median and p90 uses the nearest rank.
 
-SearXNG answered faster at the median on the first pass for both engine
-sets. With Wikipedia alone, RustXNG's first-pass p90 was 52% lower.
-SearXNG's repeated-query median was about 90–109 times the RustXNG median in this
-setup, with cache behavior included.
+| Engines | Pass | p50 and change | p90 and change |
+| --- | --- | ---: | ---: |
+| Wikipedia | First | 342.70 → 407.15 ms (**+18.8%**) | 1,486.15 → 711.27 ms (**−52.1%**) |
+| Wikipedia + Wiby | First | 316.36 → 596.46 ms (**+88.5%**) | 362.44 → 958.44 ms (**+164.4%**) |
+| Wikipedia | Repeat | 101.85 → 1.13 ms (**−98.9%**) | 197.22 → 2.51 ms (**−98.7%**) |
+| Wikipedia + Wiby | Repeat | 178.23 → 1.64 ms (**−99.1%**) | 189.09 → 2.32 ms (**−98.8%**) |
 
-RustXNG put the expected article in the top five for all 12 queries in
-each pass. SearXNG did so for 10 and missed the expected articles for
-“Mars rover Curiosity” and “Voyager 1 spacecraft.” The routes had zero
-HTTP errors and reported zero engine failures. [All 96 numeric records](engine-benchmark-results.jsonl)
+On identical repeats, the SearXNG median was 90.1× the RustXNG median
+with Wikipedia and 108.7× with Wikipedia + Wiby. The cache configuration
+and its effect are part of this measurement. [All 96 numeric records](engine-benchmark-results.jsonl)
 
-With the same HTTPS provider payload and ten identical result rows, the two services measured 3.841 ms and 0.806 ms at p50. [Matched-work test and architecture notes](architecture-latency.md).
+## Retrieval
+
+| Engines | Reference in top five | Hit-rate change | Median number of result rows |
+| --- | ---: | ---: | ---: |
+| Wikipedia | 20/24 → 24/24 (83.3% → 100%) | +16.7 pp (+20.0% relative) | 1 → 10 (+900%) |
+| Wikipedia + Wiby | 20/24 → 24/24 (83.3% → 100%) | +16.7 pp (+20.0% relative) | 12 → 21.5 (+79.2%) |
+
+Each service saw 12 distinct topics in each pass. RustXNG put the
+expected article in the top five for all 12 each time. SearXNG did so
+for 10 each time and missed “Mars rover Curiosity” and “Voyager 1
+spacecraft.” Both services reported zero HTTP or engine failures.
+The top-five measure scores one chosen Wikipedia reference per topic.
+Result row counts include every row returned by the search endpoint.
+
+With the same HTTPS provider request and ten identical result rows,
+the median fell from 3.841 to 0.806 ms (**−79.0%**) on the local
+fixture. With an 80 ms provider timer it fell from 93.748 to 89.745 ms
+(**−4.3%**). [Matched-work chart, p90 and separate provider timings](architecture-latency.md)
 
 ## Setup and scope
 

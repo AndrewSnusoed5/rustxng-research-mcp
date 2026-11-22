@@ -17,15 +17,16 @@ workload and its engine choices.
 
 | Settings | p50 | p90 | Reference in top five | Median result rows | Calls with a Wiby result |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Parallel Wikipedia + Wiby | 396 ms | 670 ms | 24/24 | 21.5 | 20/24 |
-| Staged, one engine per tier, eight results required | 386 ms | 640 ms | 24/24 | 10 | 0/24 |
-| Parallel with a 450 ms deadline | 420 ms | 462 ms | 19/24 | 10 | 0/24 |
-| Wikipedia only | 411 ms | 663 ms | 24/24 | 10 | 0/24 |
+| Parallel Wikipedia + Wiby | 396.07 ms (baseline) | 670.39 ms (baseline) | 24/24 | 21.5 | 20/24 |
+| Staged, one engine per tier, eight results required | 386.40 ms (−2.4%) | 639.87 ms (−4.6%) | 24/24 | 10 | 0/24 |
+| Parallel with a 450 ms deadline | 420.22 ms (+6.1%) | 461.65 ms (−31.1%) | 19/24 | 10 | 0/24 |
+| Wikipedia only | 411.21 ms (+3.8%) | 663.42 ms (−1.0%) | 24/24 | 10 | 0/24 |
 
-Staging gained 10 ms at p50 on this panel and removed the wider Wiby
-coverage. The tight deadline reduced p90 by 31%, with five reference
-misses. Parallel stays the general-purpose configuration. Wikipedia alone
-is an intentional engine filter for encyclopedia requests.
+Percentages compare with parallel Wikipedia + Wiby. Staging saved 9.67 ms
+at p50 and returned 53.5% fewer rows at the median. The 450 ms deadline
+cost five reference hits, a drop of 20.8 percentage points. Parallel
+stays the general-purpose configuration. Wikipedia alone is an
+intentional engine filter for encyclopedia requests.
 [RustXNG strategy configuration](https://github.com/RustXNG/RustXNG/blob/main/settings.toml)
 
 ## Process startup and caching
@@ -40,9 +41,10 @@ query used the same language and engines as the measured query.
 | New query after an unrelated warm-up | 534 ms | 910 ms | 6 |
 | Same query again in the running service | 1.23 ms | 1.47 ms | 12 |
 
-The unrelated warm-up lowered the median in this small run. Its slowest
-sample was higher. The large latency reduction came from reusing the
-identical result. The measurements and script are linked below.
+Relative to the first query after readiness, the unrelated warm-up
+reduced p50 by **24.3%** and increased p90 by **22.2%** in this six-topic
+test. Reusing the identical result reduced p50 by **99.8%**, with the
+in-process cache included in the comparison.
 
 ## Keeping a small cache on SSD
 
