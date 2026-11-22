@@ -1,8 +1,8 @@
 # RustXNG Research MCP
 
-A small Rust MCP server that connects AI clients to a self-hosted RustXNG instance. Search the web for links and snippets, or ask RustXNG for the source text it can retrieve. The server runs over stdio and talks to RustXNG through its documented HTTP API.
+A small Rust MCP server that connects AI clients to a self-hosted RustXNG instance. RustXNG is a Rust rewrite of the Python [SearXNG](https://github.com/searxng/searxng) metasearch engine. Search the web for links and snippets, or ask RustXNG for the source text it can retrieve. The server runs over stdio and talks to RustXNG through its documented HTTP API.
 
-[Architecture and troubleshooting](docs/architecture.md) · [Benchmarks and reproduction](docs/benchmarks.md)
+[Architecture and troubleshooting](docs/architecture.md) · [SearXNG vs RustXNG benchmark](docs/searxng-vs-rustxng.md)
 
 ## Quick start
 
@@ -55,11 +55,11 @@ This client makes one request to RustXNG per tool call. It keeps no query or pag
 
 RustXNG v0.32.0 requires direct connections for its page fetcher to validate destinations. If a search returns snippets but no page text, check the upstream server's own fetch and proxy configuration. Follow the settings required by your network. Text truncation and retrieval status are shown when RustXNG supplies them.
 
-## Benchmark
+## SearXNG vs RustXNG
 
-![Latency, page availability and body controls for direct RustXNG, its MCP adapter and the full my-web-search pipeline](docs/rustxng-benchmark.png)
+![Direct SearXNG versus RustXNG search latency, repeat latency and top-five retrieval](docs/searxng-vs-rustxng.png)
 
-The [benchmark notes](docs/benchmarks.md) cover live retrieval, adapter overhead on a fixed response, and the older and newer page schedulers in my-web-search.
+The [engine comparison](docs/searxng-vs-rustxng.md) tests both services directly with identical query text and shared engines. [Separate adapter and downloader results](docs/benchmarks.md) cover the MCP layer and full-page retrieval.
 
 ## Project status and license
 

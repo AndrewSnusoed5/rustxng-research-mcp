@@ -1,4 +1,6 @@
-# Benchmarks
+# Adapter and downloader benchmarks
+
+The upstream engine comparison is in [SearXNG vs RustXNG](searxng-vs-rustxng.md).
 
 Measured on Windows on 22 November 2026. RustXNG ran locally at v0.32.0
 with its Standard profile. The public adapter was built from commit 3375e31.

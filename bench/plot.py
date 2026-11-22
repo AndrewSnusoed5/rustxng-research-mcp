@@ -120,6 +120,56 @@ def fetch_chart():
     plt.close(figure)
 
 
+def engines_chart():
+    groups = defaultdict(list)
+    with (DOCS / "engine-benchmark-results.jsonl").open(encoding="utf-8-sig") as stream:
+        for line in stream:
+            row = json.loads(line)
+            groups[row["engines"], row["profile"], row["trial"]].append(row)
+    rows = [(engines, profile) for engines in ("wikipedia", "wikipedia,wiby")
+            for profile in ("searxng", "rustxng")]
+    first = [[row["ms"] for row in groups[engines, profile, 1] if not row.get("error")]
+             for engines, profile in rows]
+    repeated = [[row["ms"] for row in groups[engines, profile, 2] if not row.get("error")]
+                for engines, profile in rows]
+    controls = [sum(row.get("rank", 0) > 0 for trial in (1, 2)
+                    for row in groups[engines, profile, trial])
+                for engines, profile in rows]
+    medians = [median(values) for values in first]
+    tails = [p90(values) for values in first]
+    warm = [median(values) for values in repeated]
+
+    figure, axes = plt.subplots(1, 3, figsize=(13.4, 5.0), gridspec_kw={"wspace": 0.37})
+    figure.subplots_adjust(left=0.18, right=0.95, top=0.68, bottom=0.17)
+    figure.text(0.06, 0.89, "SearXNG vs RustXNG", fontsize=25, fontweight="bold")
+    figure.text(0.06, 0.81, "Same Windows host • Direct JSON search • 12 queries per engine set, repeated once", color=MUTED)
+    positions = [3.15, 2.45, 1.25, 0.55]
+    colors = ["#365981", "#177d79"] * 2
+    labels = ["SearXNG · Wikipedia", "RustXNG · Wikipedia",
+              "SearXNG · Wiki + Wiby", "RustXNG · Wiki + Wiby"]
+    maximum = max(tails) * 1.27
+    chart_axis(axes[0], "First pass · p90 / p50", maximum, "Milliseconds")
+    annotated_bars(axes[0], [y + 0.115 for y in positions], tails, "#b9cbdf",
+                   [f"{x:.0f}" for x in tails], maximum * 0.02, height=0.19)
+    annotated_bars(axes[0], [y - 0.115 for y in positions], medians, colors,
+                   [f"{x:.0f}" for x in medians], maximum * 0.02, height=0.19)
+    axes[0].set_yticks(positions, labels)
+    chart_axis(axes[1], "Repeated pass · p50", max(warm) * 1.24, "Milliseconds")
+    annotated_bars(axes[1], positions, warm, colors,
+                   [f"{x:.1f}" for x in warm], max(warm) * 0.021)
+    chart_axis(axes[2], "Reference in top five", 29, "Hits across two passes")
+    annotated_bars(axes[2], positions, controls, colors,
+                   [f"{x}/24" for x in controls], 0.55)
+    for axis in axes[1:]:
+        axis.set_yticks(positions, [""] * len(positions))
+        axis.set_ylim(axes[0].get_ylim())
+    figure.text(0.06, 0.052, "Repeated calls include cache effects. Live timings include both the metasearch service and the provider round trips.",
+                color=MUTED, fontsize=9)
+    figure.savefig(DOCS / "searxng-vs-rustxng.png", dpi=175)
+    plt.close(figure)
+
+
 if __name__ == "__main__":
     live_chart()
     fetch_chart()
+    engines_chart()
