@@ -5,6 +5,9 @@ benchmark calls each service's JSON search endpoint directly. The test
 uses shared engine names and the same queries, languages, and host.
 [Upstream RustXNG](https://github.com/RustXNG/RustXNG) · [SearXNG Search API](https://docs.searxng.org/dev/search_api.html)
 
+For the end-to-end HTML test with no repeated searches and a broader
+provider mix, see [How fast is a new search?](fresh-user-search.md).
+
 ![SearXNG and RustXNG compared on first-call latency, repeat latency and top-five retrieval](searxng-vs-rustxng.png)
 
 ## Live search latency

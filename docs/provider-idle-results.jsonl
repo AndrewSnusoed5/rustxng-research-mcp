@@ -1,0 +1,8 @@
+{"mode":"idle","sample":1,"profile":"searxng","count":10,"totalMs":16.316,"toProviderMs":10.091,"providerMs":0.108,"afterProviderMs":6.118,"rustKeepaliveSeconds":5,"reusedProviderSocket":null}
+{"mode":"idle","sample":1,"profile":"rustxng","count":10,"totalMs":3.463,"toProviderMs":2.594,"providerMs":0.048,"afterProviderMs":0.822,"rustKeepaliveSeconds":5,"reusedProviderSocket":null}
+{"mode":"idle","sample":2,"profile":"rustxng","count":10,"totalMs":3.242,"toProviderMs":2.064,"providerMs":0.054,"afterProviderMs":1.124,"rustKeepaliveSeconds":5,"reusedProviderSocket":true}
+{"mode":"idle","sample":2,"profile":"searxng","count":10,"totalMs":8.747,"toProviderMs":3.551,"providerMs":0.067,"afterProviderMs":5.129,"rustKeepaliveSeconds":5,"reusedProviderSocket":true}
+{"mode":"idle","sample":1,"profile":"searxng","count":10,"totalMs":14.981,"toProviderMs":8.83,"providerMs":0.106,"afterProviderMs":6.045,"rustKeepaliveSeconds":30,"reusedProviderSocket":null}
+{"mode":"idle","sample":1,"profile":"rustxng","count":10,"totalMs":3.414,"toProviderMs":2.574,"providerMs":0.038,"afterProviderMs":0.801,"rustKeepaliveSeconds":30,"reusedProviderSocket":null}
+{"mode":"idle","sample":2,"profile":"rustxng","count":10,"totalMs":3.386,"toProviderMs":2.168,"providerMs":0.052,"afterProviderMs":1.167,"rustKeepaliveSeconds":30,"reusedProviderSocket":true}
+{"mode":"idle","sample":2,"profile":"searxng","count":10,"totalMs":8.161,"toProviderMs":3.062,"providerMs":0.051,"afterProviderMs":5.049,"rustKeepaliveSeconds":30,"reusedProviderSocket":true}

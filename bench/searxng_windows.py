@@ -8,4 +8,10 @@ if os.name == "nt":
     # The loopback benchmark sets no Valkey URL, so that path is unused.
     sys.modules["pwd"] = ModuleType("pwd")
 
-from searx.webapp import app
+from searx import webapp
+
+if os.name == "nt":
+    # The HTML loader expects theme template names with URL-style separators.
+    webapp.result_templates = {name.replace("\\", "/") for name in webapp.result_templates}
+
+app = webapp.app

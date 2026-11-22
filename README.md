@@ -6,6 +6,16 @@ A small Rust MCP server that connects AI clients to a self-hosted RustXNG instan
 
 ## SearXNG vs RustXNG
 
+On 18 fresh queries across Wikipedia, Wiby, GitHub and Hacker News,
+RustXNG v0.32.0 delivered the HTML response **35.3% sooner at the median**
+(838 → 542 ms) and won **14 of 18** calls. Its HTML p90 was **11.5% longer**.
+In a separate diagnostic JSON run it had a **16.5% longer median** and a
+**3.6% shorter p90**. Both runs used live providers. [User-facing benchmark and raw records](docs/fresh-user-search.md)
+
+![Latency of new searches on four live providers](docs/fresh-user-search.png)
+
+### Earlier Wikipedia and Wiby panel
+
 | Direct HTTP search | RustXNG change vs SearXNG |
 | --- | --- |
 | First pass, Wikipedia | **18.8% longer** at p50 · **52.1% shorter** at p90 |

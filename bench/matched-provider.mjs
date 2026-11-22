@@ -1,18 +1,21 @@
 import assert from "node:assert/strict";
-import { execFileSync, spawn } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import { once } from "node:events";
 import { mkdtemp, readFile, rmdir, unlink, writeFile } from "node:fs/promises";
 import { createServer as createHttpsServer } from "node:https";
-import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { delimiter, join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
+import { directEnv as env, launchLoopback } from "./loopback-search.mjs";
 
 const [rustxng, python, searxngCheckout] = process.argv.slice(2);
 const probePagination = process.argv.includes("--pagination");
+const probeIdle = process.argv.includes("--idle");
+const rustKeepalive = Number(process.env.BENCH_RUST_KEEPALIVE_SECONDS ?? 5);
 if (!searxngCheckout) throw Error("Usage: node bench/matched-provider.mjs <RustXNG> <SearXNG Python> <checkout>");
-const env = Object.fromEntries(Object.entries(process.env).filter(([name]) =>
-  !/^(?:(?:https?|all)_proxy$|searxng_|rustxng_)/i.test(name)));
+if (!Number.isInteger(rustKeepalive) || rustKeepalive < 1) {
+  throw Error("BENCH_RUST_KEEPALIVE_SECONDS must be a positive integer");
+}
 function providerRows(query) {
   return Array.from({ length: 10 }, (_, index) => ({
     URL: "https://fixture-" + index + ".example.org/" + encodeURIComponent(query),
@@ -36,57 +39,11 @@ async function respond(request, response) {
   if (query.startsWith("delay-")) await delay(80);
   const body = JSON.stringify(providerRows(query));
   const samples = timings.get(query) ?? [];
-  samples.push({ entered, sent: performance.now(), page: url.searchParams.get("p") });
+  samples.push({ entered, sent: performance.now(), page: url.searchParams.get("p"),
+    ...(probeIdle && { socket: request.socket }) });
   timings.set(query, samples);
   response.writeHead(200, { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(body) });
   response.end(body);
-}
-
-async function ephemeralPort() {
-  const server = createServer();
-  server.listen(0, "127.0.0.1");
-  await once(server, "listening");
-  const { port } = server.address();
-  await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
-  return port;
-}
-
-async function launch(binary, args, options, port) {
-  const worker = spawn(resolve(binary), args, {
-    ...options, windowsHide: true, shell: false, detached: false, stdio: process.env.BENCH_VERBOSE ? ["ignore", "ignore", "inherit"] : "ignore",
-  });
-  let failure;
-  worker.on("error", (error) => { failure = error; });
-  const closed = new Promise((resolve) => worker.once("close", resolve));
-  const base = "http://127.0.0.1:" + port;
-  const close = async () => {
-    if (!failure && worker.exitCode === null) {
-      if (process.platform === "win32") {
-        try {
-          execFileSync("taskkill.exe", ["/pid", String(worker.pid), "/t", "/f"], {
-            windowsHide: true, stdio: "ignore",
-          });
-        } catch {
-          worker.kill();
-        }
-      } else {
-        worker.kill();
-      }
-    }
-    await closed;
-  };
-  try {
-    for (let attempt = 0; attempt < 70; attempt++) {
-      if (failure || worker.exitCode !== null) throw failure ?? Error("Service exited before readiness");
-      const response = await fetch(base + "/healthz", { signal: AbortSignal.timeout(300) }).catch(() => null);
-      if (response?.ok) return { base, close };
-      await delay(100);
-    }
-    throw Error("Service did not become ready");
-  } catch (error) {
-    await close();
-    throw error;
-  }
 }
 
 const folder = await mkdtemp(join(tmpdir(), "rustxng-matched-provider-"));
@@ -111,6 +68,7 @@ try {
   openssl(["x509", "-req", "-days", "1", "-in", csr, "-CA", rootCA, "-CAkey", rootKey,
     "-set_serial", "1", "-extfile", extensions, "-out", certificate]);
   fixture = createHttpsServer({ key: await readFile(privateKey), cert: await readFile(certificate) }, respond);
+  if (probeIdle) fixture.keepAliveTimeout = 60_000;
   fixture.listen(0, "127.0.0.1");
   await once(fixture, "listening");
   const provider = "https://127.0.0.1:" + fixture.address().port + "/json/?q={query}&p=" + (probePagination ? "{pageno}" : "1");
@@ -123,20 +81,19 @@ try {
   ].join("\n"));
   await writeFile(toml, [
     "[outgoing]", "ca_bundle = " + JSON.stringify(rootCA),
+    ...(probeIdle ? ["keepalive_expiry = " + rustKeepalive + ".0"] : []),
     "[[engines]]", 'name = "wiby"', 'engine = "json_engine"', 'shortcut = "wib"',
     'categories = ["general"]', "paging = true", 'search_url = "' + provider + '"',
     'url_query = "URL"', 'title_query = "Title"', 'content_query = "Snippet"', "",
   ].join("\n"));
-  const pythonPort = await ephemeralPort();
   const target = process.platform === "win32" ? "searxng_windows:app" : "searx.webapp:app";
-  services.push(["searxng", await launch(python, ["-m", "granian", "--interface", "wsgi", "--host",
-    "127.0.0.1", "--port", String(pythonPort), "--workers", "1", target], {
+  services.push(["searxng", await launchLoopback(python, (port) => ["-m", "granian", "--interface", "wsgi", "--host",
+    "127.0.0.1", "--port", String(port), "--workers", "1", target], {
     cwd: resolve(searxngCheckout),
     env: { ...env, PYTHONDONTWRITEBYTECODE: "1", SEARXNG_SETTINGS_PATH: yml, PYTHONPATH: [resolve("bench"), env.PYTHONPATH].filter(Boolean).join(delimiter) },
-  }, pythonPort)]);
-  const rustPort = await ephemeralPort();
-  services.push(["rustxng", await launch(rustxng, ["--profile", "standard", "--config", toml,
-    "--bind", "127.0.0.1", "--port", String(rustPort)], { env }, rustPort)]);
+  })]);
+  services.push(["rustxng", await launchLoopback(rustxng, (port) => ["--profile", "standard", "--config", toml,
+    "--bind", "127.0.0.1", "--port", String(port)], { env })]);
 
   if (probePagination) {
     for (const page of [1, 2, 3]) {
@@ -159,8 +116,11 @@ try {
     }
   }
 
-  for (const [mode, total] of probePagination ? [] : [["local", 60], ["delay", 30]]) {
-    for (let sample = -5; sample < total; sample++) {
+  const firstSocket = new Map();
+  const modes = probePagination ? [] : probeIdle ? [["idle", 2]] : [["local", 60], ["delay", 30]];
+  for (const [mode, total] of modes) {
+    for (let sample = probeIdle ? 0 : -5; sample < total; sample++) {
+      if (probeIdle && sample === 1) await delay(8000);
       const query = mode + "-fixture-" + sample;
       const order = sample % 2 ? [...services].reverse() : services;
       for (const [profile, service] of order) {
@@ -183,13 +143,16 @@ try {
         assert.deepEqual(normalized, expected);
         const calls = timings.get(query);
         assert.equal(calls?.length, count + 1, "expected one provider call per search");
-        const { entered, sent } = calls.at(-1);
+        const { entered, sent, socket } = calls.at(-1);
+        if (probeIdle && sample === 0) firstSocket.set(profile, socket);
         if (sample >= 0) {
           const ms = (value) => +value.toFixed(3);
           console.log(JSON.stringify({
             mode, sample: sample + 1, profile, count: normalized.length,
             totalMs: ms(ended - start), toProviderMs: ms(entered - start),
             providerMs: ms(sent - entered), afterProviderMs: ms(ended - sent),
+            ...(probeIdle && { rustKeepaliveSeconds: rustKeepalive,
+              reusedProviderSocket: sample === 1 ? socket === firstSocket.get(profile) : null }),
           }));
         }
       }

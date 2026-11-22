@@ -223,8 +223,35 @@ def matched_chart():
     plt.close(figure)
 
 
+def fresh_user_chart():
+    groups = comparison_groups("fresh-user-search-results.jsonl", "profile")
+    before, after = [groups[profile,] for profile in ("searxng", "rustxng")]
+    timings = comparison_rows("HTML",
+                              [row["ms"] for row in before if "ms" in row],
+                              [row["ms"] for row in after if "ms" in row], 1)
+    diagnostic = comparison_groups("fresh-user-search-timings.jsonl", "profile")
+    timings.extend(comparison_rows("Diagnostic JSON",
+                                   *([row["ms"] for row in diagnostic[profile,] if "ms" in row]
+                                     for profile in ("searxng", "rustxng")), 1))
+    figure, axis = plt.subplots(figsize=(12.6, 4.2))
+    figure.subplots_adjust(left=0.23, right=0.715, top=0.65, bottom=0.29)
+    topics = len({row["topic"] for row in before})
+    figure.text(0.055, 0.87, "Fresh searches on live providers", fontsize=24, fontweight="bold")
+    figure.text(0.055, 0.76, f"SearXNG vs RustXNG v0.32.0 · {topics} different queries per run · Complete responses", color=MUTED)
+    latency_comparison(axis, timings, [-40, -30, -20, -10, 0, 10, 20])
+    hits = [sum(row.get("rank", 0) > 0 for row in rows) for rows in (before, after)]
+    wins = sum(rust["ms"] < sear["ms"] for rust, sear in zip(after, before) if "ms" in rust and "ms" in sear)
+    figure.text(0.055, 0.14, f"HTML run · RustXNG was quicker on {wins}/{topics} queries · Reference hit@5 {hits[0]}/{topics} → {hits[1]}/{topics}",
+                fontsize=11, fontweight="bold")
+    figure.text(0.055, 0.07, "Wikipedia, Wiby, GitHub and Hacker News · No timed query was reused within a service.",
+                fontsize=9, color=MUTED)
+    figure.savefig(DOCS / "fresh-user-search.png", dpi=175)
+    plt.close(figure)
+
+
 if __name__ == "__main__":
     live_chart()
     fetch_chart()
     engines_chart()
     matched_chart()
+    fresh_user_chart()
